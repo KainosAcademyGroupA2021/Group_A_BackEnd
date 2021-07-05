@@ -17,3 +17,8 @@ function wrapDB(dbconfig) {
 }
 
 const db = wrapDB(dbconfig);
+
+exports.getPeopleList = async () => {
+    let results = await db.query('SELECT * FROM JobRoleDatabase.Persons;') 
+    return results;
+}
