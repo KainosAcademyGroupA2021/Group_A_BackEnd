@@ -1,2 +1,2 @@
 # GroupA
-Group A Repositoey
+Group A Repository
