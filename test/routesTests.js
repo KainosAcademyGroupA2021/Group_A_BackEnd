@@ -15,3 +15,13 @@ describe("Routes testing", function () {
       .expect(200, done);
   })
 });
+
+describe("Routes testing", function () {
+  it("/getJobRoles returns a single role object", done => {
+    request(app)
+      .get("/getJobRoles")
+      .expect("Content-Type", /json/)
+      .expect([{"RoleID":2,"RoleName":"Software Engineer","RoleSpec":"link to spec","CapabilityID":1,"BandID":1}])
+      .expect(200, done);
+  })
+});
