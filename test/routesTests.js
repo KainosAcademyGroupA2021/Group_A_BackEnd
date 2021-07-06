@@ -3,7 +3,6 @@ const request = require("supertest");
 const express = require("express");
 const assert = require("assert")
 const app = express();
-const assert = require('assert')
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
