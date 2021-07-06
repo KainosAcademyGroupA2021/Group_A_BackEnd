@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router()
 const cors = require('cors');
 const dbconnection = require('./dbconnection.js');
-
 router.use(cors());
 
 router.get("/people-list", async (req, res) => {
