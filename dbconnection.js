@@ -1,8 +1,10 @@
 const mysql = require('mysql')
-const dbconfig = require('./dbconfig.json')
+
 const express = require("express");
 const cors = require('cors');
 const app = express()
+const dbconfig = require('./dbconfig.js')
+
 const util = require('util')
 
 const bodyParser = require("body-parser");
@@ -27,6 +29,7 @@ function wrapDB(dbconfig) {
 const db = wrapDB(dbconfig);
 
 exports.getPeopleList = async () => {
+
     let results = await db.query('SELECT * FROM JobRoleDatabase.Persons;')
     return results;
 }
