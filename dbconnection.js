@@ -1,8 +1,10 @@
 const mysql = require('mysql')
-const dbconfig = require('./dbconfig.json')
+
 const express = require("express");
 const cors = require('cors');
 const app = express()
+const dbconfig = require('./dbconfig.js')
+
 const util = require('util')
 
 const bodyParser = require("body-parser");
@@ -26,6 +28,11 @@ function wrapDB(dbconfig) {
 
 const db = wrapDB(dbconfig);
 
+exports.getCapabilitiesOfRoles= async () => {
+    let result = await db.query('SELECT RoleId, RoleName, CapabilityName FROM Role JOIN Capability USING (CapabilityID);');
+    return result;
+}
+
 exports.getPeopleList = async () => {
     let results = await db.query('SELECT * FROM JobRoleDatabase.Persons;')
     return results;
@@ -34,4 +41,11 @@ exports.getPeopleList = async () => {
 exports.getJobRoles = async () => {
   let response = await db.query('SELECT * FROM JobRoleDatabase.Role;')
   return response;
+}
+
+exports.getJobRolesSpecifications = async (name) => {
+    console.log(name);
+    let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
+    return results;
+    
 }
