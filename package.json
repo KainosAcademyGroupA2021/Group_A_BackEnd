@@ -4,17 +4,20 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "mocha --exit"
   },
   "keywords": [],
   "author": "Joe Downard <joehdownard@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "assert": "^2.0.0",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mocha": "^9.0.2",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.9",
     "supertest": "^6.1.3"
   }
 }

@@ -25,4 +25,9 @@ router.get("/rolesWithCapabilityNames", async (req, res) => {
     res.json(response);
 });
 
+router.get("/job-roles", async (req, res) => {
+    console.log(req.query.name)
+    res.json(await dbconnection.getJobRolesSpecifications(req.query.name));
+});
+
 module.exports = router;
