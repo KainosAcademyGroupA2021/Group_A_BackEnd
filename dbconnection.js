@@ -18,8 +18,8 @@ function wrapDB(dbconfig) {
 
 const db = wrapDB(dbconfig);
 
-exports.getCapabilityOfRoleId = async (id) => {
-    let result = await db.query('SELECT RoleName, CapabilityName FROM Role JOIN Capability USING (CapabilityID) WHERE RoleID = ?;', id);
+exports.getCapabilitiesOfRoles= async () => {
+    let result = await db.query('SELECT RoleId, RoleName, CapabilityName FROM Role JOIN Capability USING (CapabilityID);');
     return result;
 }
 
