@@ -38,6 +38,11 @@ exports.getPeopleList = async () => {
     return results;
 }
 
+exports.getJobRoles = async () => {
+  let response = await db.query('SELECT * FROM JobRoleDatabase.Role;')
+  return response;
+}
+
 exports.getJobRolesSpecifications = async (name) => {
     console.log(name);
     let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)

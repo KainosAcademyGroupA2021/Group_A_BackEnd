@@ -37,6 +37,17 @@ describe("Routes testing", function () {
   })
 });
 
+
+describe("Routes testing", function () {
+  it("/getJobRoles returns a single role object", done => {
+    request(app)
+      .get("/getJobRoles")
+      .expect("Content-Type", /json/)
+      .expect([{"RoleID":2,"RoleName":"Software Engineer","RoleSpec":"link to spec","CapabilityID":1,"BandID":1}])
+      .expect(200, done);
+  })
+});
+
 describe("jobRoleSpecification testing", () => {
   it("/job-roles return specification within role", done=> {
     request(app)
@@ -58,5 +69,3 @@ describe("jobRoleSpecification testing", () => {
 
 
 })
-
-
