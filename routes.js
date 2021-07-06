@@ -19,6 +19,12 @@ router.get("/", (req, res) => {
     res.json({hello: "world"});
 });
 
+router.get("/rolesWithCapabilityNames", async (req, res) => {
+    let role_id = req.params.id;
+    let response = await dbconnection.getCapabilitiesOfRoles();
+    res.json(response);
+});
+
 router.get("/job-roles", async (req, res) => {
     console.log(req.query.name)
     res.json(await dbconnection.getJobRolesSpecifications(req.query.name));
