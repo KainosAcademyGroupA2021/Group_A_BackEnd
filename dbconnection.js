@@ -33,6 +33,11 @@ exports.getJobRoles = async () => {
   return response;
 }
 
+exports.getCapabilityAndJobFamily = async () => {
+  let response = await db.query('SELECT CapabilityID, CapabilityName, JobFamilyName FROM JobRoleDatabase.Capability JOIN JobFamily USING (CapabilityID);')
+  return response;
+}
+
 
 exports.getTraingByBand = async() => {
     let response = await db.query('Select BandID, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Training Using (TrainingID);')
