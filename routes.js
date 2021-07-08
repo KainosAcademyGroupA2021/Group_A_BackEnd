@@ -18,5 +18,9 @@ router.get("/getJobRoles", async (req, res) => {
   res.json(await dbconnection.getJobRoles());
 })
 
+router.get("/getCapabilityAndJobFamily", async (req, res) => {
+  res.json(await dbconnection.getCapabilityAndJobFamily());
+})
+
 
 module.exports = router;
