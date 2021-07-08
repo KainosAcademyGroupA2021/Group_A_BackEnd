@@ -29,5 +29,29 @@ describe("Job roles testing", () => {
   
   })
 
+})
+
+describe("Training by band", () => {
+  it("/getTrainingByBand return list of trainings by band ", done=> {
+    request(app)
+    .get("/getTrainingByBand")
+    .expect("Content-Type", /json/)
+    .expect(200)
+    .then(response => {
+      console.log(response.body)
+      
+      assert(response.body[0], {
+        BandID: 1,
+        TrainingType: 'Professional skills',
+        BandName: 'Trainee',
+        TrainingName: 'Training name',
+        TrainingLink: 'training link'
+      })
+      done();
+    })
+    .catch(err => done(err))
+  
+  })
 
 })
+
