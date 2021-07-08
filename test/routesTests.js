@@ -77,4 +77,26 @@ describe("Training by band", () => {
   })
 
 })
+describe("Band Competencies testing", () => {
+  it("/getBandCompetencies return list of bands", done=> {
+    request(app)
+    .get("/getBandCompetencies")
+    .expect("Content-Type", /json/)
+    .expect(200)
+    .then(response => {
+      console.log(response.body)
+      
+      assert(response.body[0], {
+        BandName: 'Trainee',
+        BandLevel: 7,
+        CompetenciesName: 'Communication & influence, Personal performance, Working with others, Setting direction development & accountability, Supporting & delivering strategy, Commerciality & risk'
+      })
+      done();
+    })
+    .catch(err => done(err))
+  
+  })
+
+
+})
 
