@@ -23,4 +23,7 @@ router.get("/getTrainingByBand", async (req, res) => {
 })
 
 
+router.get("/getBandCompetencies", async (req, res) => {
+    res.json(await dbconnection.getBandCompetencies());
+})
 module.exports = router;
