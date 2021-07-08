@@ -31,3 +31,27 @@ describe("Job roles testing", () => {
 
 
 })
+
+describe("Band responsibilites testing", () => {
+  it("/getBandResponsibilities return list of band responsibities", done=> {
+    request(app)
+    .get("/getBandResponsibilities")
+    .expect("Content-Type", /json/)
+    .expect(200)
+    .then(response => {
+      console.log(response.body)
+      
+      assert(response.body[0], {
+        BandID: 2,
+        BandName: 'Apprentice',
+        BandLevel: '1',
+        Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
+      })
+      done();
+    })
+    .catch(err => done(err))
+  
+  })
+
+
+})
