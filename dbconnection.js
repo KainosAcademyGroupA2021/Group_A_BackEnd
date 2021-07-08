@@ -49,3 +49,8 @@ exports.getJobRolesSpecifications = async (name) => {
     return results;
     
 }
+
+exports.getBandCompetencies = async () => {
+    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Competencies USING (CompetenciesID);');
+    return result;
+}

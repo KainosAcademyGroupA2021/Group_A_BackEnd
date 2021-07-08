@@ -33,4 +33,7 @@ router.get("/job-roles", async (req, res) => {
     res.json(await dbconnection.getJobRolesSpecifications(req.query.name));
 });
 
+router.get("/getBandCompetencies", async (req, res) => {
+    res.json(await dbconnection.getBandCompetencies());
+})
 module.exports = router;
