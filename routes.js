@@ -18,6 +18,10 @@ router.get("/getJobRoles", async (req, res) => {
   res.json(await dbconnection.getJobRoles());
 })
 
+router.get("/getTrainingByBand", async (req, res) => {
+  res.json(await dbconnection.getTraingByBand())
+})
+
 
 router.get("/getBandCompetencies", async (req, res) => {
     res.json(await dbconnection.getBandCompetencies());
