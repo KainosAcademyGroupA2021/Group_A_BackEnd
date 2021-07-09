@@ -106,20 +106,7 @@ describe("Training by band", () => {
         BandName: 'Apprentice',
         TrainingName: 'Managing Your Career',
         TrainingLink: 'https://kainossoftwareltd.sharepoint.com/L%26D/SitePages/Managing-Your-Career(4).aspx'
-
-      .get("/getTrainingByBand")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(response => {
-        console.log(response.body)
-
-        assert(response.body[0], {
-          BandID: 1,
-          TrainingType: 'Professional skills',
-          BandName: 'Trainee',
-          TrainingName: 'Training name',
-          TrainingLink: 'training link'
-        })
+      })
         done();
 
       })
@@ -290,4 +277,5 @@ describe("Band responsibilites testing", () => {
 
 
 })
+  
 
