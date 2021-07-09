@@ -60,7 +60,7 @@ describe("Bands Route Testing", () => {
           BandLevel: 1,
           Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
           TrainingID: 1,
-          CompetenciesID: null
+          CompetenciesID: 1
         })
         done();
       })
