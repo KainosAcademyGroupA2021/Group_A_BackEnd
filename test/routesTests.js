@@ -157,67 +157,6 @@ describe("Capability and Job Family endpoint test", () => {
 
 })
 
-describe("Training by band", () => {
-  it("/getTrainingByBand return list of trainings by band ", done => {
-    request(app)
-      .get("/getTrainingByBand")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(response => {
-        console.log(response.body)
-
-        assert(response.body[0], {
-          BandID: 1,
-          TrainingType: 'Professional skills',
-          BandName: 'Trainee',
-          TrainingName: 'Training name',
-          TrainingLink: 'training link'
-        })
-        done();
-      })
-      .catch(err => done(err))
-
-  })
-})
-
-describe("Band Competencies testing", () => {
-  it("/getBandCompetencies return list of bands", done => {
-    request(app)
-      .get("/getBandCompetencies")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(response => {
-        console.log(response.body)
-
-        assert(response.body[0], {
-          BandName: 'Trainee',
-          BandLevel: 7,
-          CompetenciesName: 'Communication & influence, Personal performance, Working with others, Setting direction development & accountability, Supporting & delivering strategy, Commerciality & risk'
-        })
-        done();
-      })
-      .catch(err => done(err))
-  })
-})
-
-describe("Capability Route Testing", () => {
-  it("/getCapabilities return list of job families", done => {
-    request(app)
-      .get("/getCapabilities")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(response => {
-
-        assert.deepStrictEqual(response.body[0], {
-          CapabilityID: 1,
-          CapabilityName: 'Engineering',
-          CapabilityLeadID: 1
-        })
-        done();
-      })
-      .catch(err => done(err))
-  })
-})
 
 describe("Add role post Route Testing", () => {
   it("/addRole will successfully add a role", done => {
