@@ -44,10 +44,10 @@ exports.getBandResponsibilities = async () => {
     return response;
   }
 
-  
+
 
 exports.getCapabilityAndJobFamily = async () => {
-  let response = await db.query('SELECT CapabilityID, CapabilityName, JobFamilyName FROM JobRoleDatabase.Capability JOIN JobFamily USING (CapabilityID);')
+  let response = await db.query('SELECT CapabilityName, JobFamilyName FROM JobRoleDatabase.Capability JOIN JobFamily USING (CapabilityID);')
   return response;
 }
 
