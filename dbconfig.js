@@ -1,7 +1,8 @@
-module.exports = {
-    "connectionLimit": 10,
-    "host": process.env.GROUPA_AWS_HOST_NAME,
-    "user": process.env.GROUPA_DATABASE_USER,
-    "password": process.env.GROUPA_DATABASE_PASSWORD,
-    "database": process.env.GROUP_DATABASE_NAME
+module.exports = 
+{
+ "connectionLimit": 10,
+ "host": "academy2020.cpc8rvmbbd9k.eu-west-2.rds.amazonaws.com",
+ "user": "groupA",
+ "password": "F^z614v8AMo!",
+ "database": "JobRoleDatabase"
 }
