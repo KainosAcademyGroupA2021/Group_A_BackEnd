@@ -60,7 +60,7 @@ describe("Bands Route Testing", () => {
           BandLevel: 1,
           Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
           TrainingID: 1,
-          CompetenciesID: null
+          CompetenciesID: 1
         })
         done();
       })
@@ -155,29 +155,6 @@ describe("Capability and Job Family endpoint test", () => {
 
   })
 
-})
-
-describe("Training by band", () => {
-  it("/getTrainingByBand return list of trainings by band ", done => {
-    request(app)
-      .get("/getTrainingByBand")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(response => {
-        console.log(response.body)
-
-        assert(response.body[0], {
-          BandID: 1,
-          TrainingType: 'Professional skills',
-          BandName: 'Trainee',
-          TrainingName: 'Training name',
-          TrainingLink: 'training link'
-        })
-        done();
-      })
-      .catch(err => done(err))
-
-  })
 })
 
 describe("Band Competencies testing", () => {
