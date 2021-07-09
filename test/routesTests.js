@@ -65,155 +65,137 @@ describe("Bands Route Testing", () => {
         done();
       })
       .catch(err => done(err))
-    .get("/getJobRoles")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
-
-      assert(response.body[0], {
-        RoleID: 2,
-        RoleName: 'Software Engineer',
-        RoleSpec: 'link to spec',
-        CapabilityName: 'Engineering',
-        BandName: 'Trainee'
-      })
-      done();
-    })
-    .catch(err => done(err))
-
   })
-
 
 })
 
 describe("Capability and Job Family endpoint test", () => {
-  it("/getCapabilityAndJobFamily return list of relations", done=> {
+  it("/getCapabilityAndJobFamily return list of relations", done => {
     request(app)
-    .get("/getCapabilityAndJobFamily")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
+      .get("/getCapabilityAndJobFamily")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        console.log(response.body)
 
-      assert(response.body[0], {
-        CapabilityID: 1,
-        CapabilityName: 'Engineering',
-        JobFamilyName: 'Engineering Strategy and Planning'
+        assert(response.body[0], {
+          CapabilityID: 1,
+          CapabilityName: 'Engineering',
+          JobFamilyName: 'Engineering Strategy and Planning'
+        })
+        done();
       })
-      done();
-    })
-    .catch(err => done(err))
+      .catch(err => done(err))
 
   })
 
 })
 
 describe("Training by band", () => {
-  it("/getTrainingByBand return list of trainings by band ", done=> {
+  it("/getTrainingByBand return list of trainings by band ", done => {
     request(app)
-    .get("/getTrainingByBand")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
-      
-      assert(response.body[0], {
-        BandID: 1,
-        TrainingType: 'Professional skills',
-        BandName: 'Trainee',
-        TrainingName: 'Training name',
-        TrainingLink: 'training link'
+      .get("/getTrainingByBand")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        console.log(response.body)
+
+        assert(response.body[0], {
+          BandID: 1,
+          TrainingType: 'Professional skills',
+          BandName: 'Trainee',
+          TrainingName: 'Training name',
+          TrainingLink: 'training link'
+        })
+        done();
       })
-      done();
-    })
-    .catch(err => done(err))
-  
+      .catch(err => done(err))
+
   })
 })
 
 describe("Band Competencies testing", () => {
-  it("/getBandCompetencies return list of bands", done=> {
+  it("/getBandCompetencies return list of bands", done => {
     request(app)
-    .get("/getBandCompetencies")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
-      
-      assert(response.body[0], {
-        BandName: 'Trainee',
-        BandLevel: 7,
-        CompetenciesName: 'Communication & influence, Personal performance, Working with others, Setting direction development & accountability, Supporting & delivering strategy, Commerciality & risk'
+      .get("/getBandCompetencies")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        console.log(response.body)
+
+        assert(response.body[0], {
+          BandName: 'Trainee',
+          BandLevel: 7,
+          CompetenciesName: 'Communication & influence, Personal performance, Working with others, Setting direction development & accountability, Supporting & delivering strategy, Commerciality & risk'
+        })
+        done();
       })
-      done();
-    })
-    .catch(err => done(err))
+      .catch(err => done(err))
   })
 })
 
 describe("Capability and Job Family endpoint test", () => {
-  it("/getCapabilityAndJobFamily return list of relations", done=> {
+  it("/getCapabilityAndJobFamily return list of relations", done => {
     request(app)
-    .get("/getCapabilityAndJobFamily")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
+      .get("/getCapabilityAndJobFamily")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        console.log(response.body)
 
-      assert(response.body[0], {
-        CapabilityID: 1,
-        CapabilityName: 'Engineering',
-        JobFamilyName: 'Engineering Strategy and Planning'
+        assert(response.body[0], {
+          CapabilityID: 1,
+          CapabilityName: 'Engineering',
+          JobFamilyName: 'Engineering Strategy and Planning'
+        })
+        done();
       })
-      done();
-    })
-    .catch(err => done(err))
+      .catch(err => done(err))
 
   })
 
 })
 
 describe("Training by band", () => {
-  it("/getTrainingByBand return list of trainings by band ", done=> {
+  it("/getTrainingByBand return list of trainings by band ", done => {
     request(app)
-    .get("/getTrainingByBand")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
-      
-      assert(response.body[0], {
-        BandID: 1,
-        TrainingType: 'Professional skills',
-        BandName: 'Trainee',
-        TrainingName: 'Training name',
-        TrainingLink: 'training link'
+      .get("/getTrainingByBand")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        console.log(response.body)
+
+        assert(response.body[0], {
+          BandID: 1,
+          TrainingType: 'Professional skills',
+          BandName: 'Trainee',
+          TrainingName: 'Training name',
+          TrainingLink: 'training link'
+        })
+        done();
       })
-      done();
-    })
-    .catch(err => done(err))
-  
+      .catch(err => done(err))
+
   })
 })
 
 describe("Band Competencies testing", () => {
-  it("/getBandCompetencies return list of bands", done=> {
+  it("/getBandCompetencies return list of bands", done => {
     request(app)
-    .get("/getBandCompetencies")
-    .expect("Content-Type", /json/)
-    .expect(200)
-    .then(response => {
-      console.log(response.body)
-      
-      assert(response.body[0], {
-        BandName: 'Trainee',
-        BandLevel: 7,
-        CompetenciesName: 'Communication & influence, Personal performance, Working with others, Setting direction development & accountability, Supporting & delivering strategy, Commerciality & risk'
+      .get("/getBandCompetencies")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        console.log(response.body)
+
+        assert(response.body[0], {
+          BandName: 'Trainee',
+          BandLevel: 7,
+          CompetenciesName: 'Communication & influence, Personal performance, Working with others, Setting direction development & accountability, Supporting & delivering strategy, Commerciality & risk'
+        })
+        done();
       })
-      done();
-    })
-    .catch(err => done(err))
+      .catch(err => done(err))
   })
 })
 
@@ -263,8 +245,8 @@ describe("Add role post Route Testing", () => {
           .expect(200)
           .then(response => {
             done();
-        })
-        .catch(err => done(err))
+          })
+          .catch(err => done(err))
       })
       .catch(err => done(err))
   })
