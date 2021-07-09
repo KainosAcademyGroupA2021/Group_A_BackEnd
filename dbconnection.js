@@ -52,6 +52,11 @@ exports.getCapabilityAndJobFamily = async () => {
 }
 
 
+
+exports.getTraingByBand = async() => {
+    let response = await db.query('Select BandID, BandLevel, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Training Using (TrainingID);')
+}
+
 exports.getCapabilities= async () => {
     let response = await db.query('SELECT * FROM Capability;')
     return response
@@ -63,6 +68,7 @@ exports.getBands = async () => {
 
 exports.getTraingByBand = async () => {
     let response = await db.query('Select BandID, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Training Using (TrainingID);')
+
     return response;
 }
 exports.getJobRolesSpecifications = async (name) => {
