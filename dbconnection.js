@@ -29,12 +29,25 @@ function wrapDB(dbconfig) {
 const db = wrapDB(dbconfig);
 
 exports.getJobRoles = async () => {
-  let response = await db.query('SELECT RoleID, RoleName, RoleSpec, CapabilityName, BandName FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
-  return response;
+    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, CapabilityName, BandName FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
+    return response;
 }
 
+exports.getJobFamilies = async () => {
+    let response = await db.query('SELECT * FROM JobFamily;')
+    return response;
+}
 
-exports.getTraingByBand = async() => {
+exports.getCapabilities= async () => {
+    let response = await db.query('SELECT * FROM Capability;')
+    return response
+}
+exports.getBands = async () => {
+    let response = await db.query('SELECT * FROM Band;')
+    return response;
+}
+
+exports.getTraingByBand = async () => {
     let response = await db.query('Select BandID, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Training Using (TrainingID);')
     return response;
 }
@@ -42,7 +55,7 @@ exports.getJobRolesSpecifications = async (name) => {
     console.log(name);
     let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
     return results;
-    
+
 }
 
 exports.getBandCompetencies = async () => {
@@ -50,3 +63,12 @@ exports.getBandCompetencies = async () => {
     return result;
 }
 
+exports.addRole = async (Role) => {
+    let results = await db.query('INSERT INTO Role SET ?', Role);
+    return results.insertId;
+}
+
+exports.deleteRole = async (id) => {
+    let results = await db.query('DELETE FROM Role WHERE RoleID = ?', id);
+    return results;
+}
