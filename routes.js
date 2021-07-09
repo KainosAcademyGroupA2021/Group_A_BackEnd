@@ -42,7 +42,9 @@ router.get("/getCapabilityAndJobFamily", async (req, res) => {
 
 
 router.get("/getTrainingByBand", async (req, res) => {
-    res.json(await dbconnection.getTraingByBand())
+    const result = await dbconnection.getTraingByBand();
+    console.log(result);
+    res.json(result);
 })
 
 
