@@ -29,7 +29,7 @@ function wrapDB(dbconfig) {
 const db = wrapDB(dbconfig);
 
 exports.getJobRoles = async () => {
-    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, CapabilityName, BandName, BandLevel FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
+    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
     return response;
 }
 
@@ -67,12 +67,9 @@ exports.getBands = async () => {
     return response;
 }
 
-
 exports.getJobRolesSpecifications = async (name) => {
     console.log(name);
     let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
-
-
 }
 
 exports.getBandCompetencies = async () => {
@@ -97,5 +94,44 @@ exports.addJobFamily = async (newJobFamily) => {
 
 exports.deleteJobFamily = async (id) => {
     let results = await db.query('DELETE FROM JobFamily WHERE JobFamilyID = ?', id);
+    return results;
+}
+
+exports.deleteBand = async (id) => {
+    let results = await db.query('DELETE FROM Band WHERE BandID = ?', id);
+    return results;
+}
+
+exports.addBand = async (Band) => {
+    let results = await db.query('INSERT INTO Band SET ?', Band);
+    return results.insertId;
+}
+
+exports.addBandTraining = async (trainingID, bandID) => {
+    let results = await db.query('INSERT INTO Band_Training VALUES (?, ?)', [trainingID, bandID]);
+    return results.insertId;
+}
+
+exports.getCompetencies = async () => {
+    let response = await db.query('SELECT * FROM Competencies;')
+    return response;
+}
+
+exports.getCapabilityLeads = async () => {
+    let response = await db.query('SELECT * FROM CapabilityLeads;')
+    return response;
+}
+exports.getTrainings = async () => {
+    let response = await db.query('SELECT * FROM Training;')
+    return response;
+}
+
+exports.addCapability = async (Capability) => {
+    let results = await db.query('INSERT INTO Capability SET ?', Capability);
+    return results.insertId;
+}
+
+exports.deleteCapability = async (id) => {
+    let results = await db.query('DELETE FROM Capability WHERE CapabilityID = ?', id);
     return results;
 }
