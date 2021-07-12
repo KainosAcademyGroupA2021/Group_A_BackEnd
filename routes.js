@@ -91,7 +91,9 @@ router.post("/addNewJobFamily", async (req, res) => {
 })
 
 router.post("/deleteJobFamily", async (req, res) => {
-    let result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
+   let result;
+   result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
+   res.json(result);
 })
 
 router.post("/deleteBand", async (req, res) => {

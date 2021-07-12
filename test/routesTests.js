@@ -276,39 +276,6 @@ describe("Band responsibilites testing", () => {
   })
 })
 
-describe("Add Job Family Route Testing", () => {
-  it("/addJobFamily will successfully add a Job Family", done => {
-    request(app)
-      .post("/addNewJobFamily")
-      .send({
-        JobFamilyName: 'Unit Test Job Family',
-        CapabilityID: '1'
-      })
-      .set('Accept', 'application/json')
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then(response => {
-        return response.body;
-      })
-      .then((response) => {
-        request(app)
-          .post("/deleteJobFamily")
-          .send({
-            JobFamilyID: response.insertId
-          })
-          .set('Accept', 'application/json')
-          .expect("Content-Type", /json/)
-          .expect(200)
-          .then(response => {
-            done();
-          })
-          .catch(err => done(err))
-      })
-      .catch(err => done(err))
-  })
-})
-
-
 describe("Capability Leads testing", () => {
   it("/getCapabilityLeads return list of Capability leads", done=> {
     request(app)
@@ -348,6 +315,38 @@ describe("Add Capability post Route Testing", () => {
           .post("/deleteCapability")
           .send({
             CapabilityID: id
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
+describe("Add Job Family Route Testing", () => {
+  it("/addJobFamily will successfully add a Job Family", done => {
+    request(app)
+      .post("/addNewJobFamily")
+      .send({
+        JobFamilyName: "Unit test",
+        CapabilityID: "1"
+      })
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        console.log(id.insertId);
+        request(app)
+          .post("/deleteJobFamily")
+          .send({
+            JobFamilyID: id.insertId
           })
           .set('Accept', 'application/json')
           .expect("Content-Type", /json/)
