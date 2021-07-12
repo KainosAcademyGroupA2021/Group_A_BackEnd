@@ -60,7 +60,9 @@ router.get("/getCompetencies", async (req, res) => {
     res.json(await dbconnection.getCompetencies());
 })
 
-
+router.get("/getCapabilityLeads", async (req, res) => {
+    res.json(await dbconnection.getCapabilityLeads());
+})
 
 
 router.post("/addRole", async (req, res) => {
@@ -107,6 +109,21 @@ router.post("/addBand", async (req, res) => {
     }
     }
     res.json(insertId);
+})
+
+router.post("/addCapability", async (req, res) => {
+    let result;
+    if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
+        result = "Bad request"
+    } else {
+        result = await dbconnection.addCapability(req.body);
+    }
+    res.json(result);
+})
+
+router.post("/deleteCapability", async (req, res) => {
+    let result = await dbconnection.deleteCapability(req.body.CapabilityID);
+    res.json(result);
 })
 
 module.exports = router;
