@@ -89,3 +89,25 @@ exports.deleteRole = async (id) => {
     let results = await db.query('DELETE FROM Role WHERE RoleID = ?', id);
     return results;
 }
+
+exports.addBand = async (Band) => {
+    let results = await db.query('INSERT INTO Band SET ?', Band);
+    return results.insertId;
+}
+
+exports.addBandTraining = async (trainingID, bandID) => {
+    let results = await db.query('INSERT INTO Band_Training VALUES (?, ?)', [trainingID, bandID]);
+    return results.insertId;
+}
+
+
+exports.getCompetencies = async () => {
+    let response = await db.query('SELECT * FROM Competencies;')
+    return response;
+}
+
+
+exports.getTrainings = async () => {
+    let response = await db.query('SELECT * FROM Training;')
+    return response;
+}
