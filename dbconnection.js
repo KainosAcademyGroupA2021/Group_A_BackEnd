@@ -71,7 +71,7 @@ exports.getBands = async () => {
 exports.getJobRolesSpecifications = async (name) => {
     console.log(name);
     let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
-    
+
 
 }
 
@@ -88,4 +88,9 @@ exports.addRole = async (Role) => {
 exports.deleteRole = async (id) => {
     let results = await db.query('DELETE FROM Role WHERE RoleID = ?', id);
     return results;
+}
+
+exports.postJobFamily = async (jobFamilyID, jobFamilyName, capabilityID) => {
+  let results = await db.query(`INSERT INTO JobFamily (JobFamilyID, JobFamilyName, CapabilityID) VALUES ('${jobFamilyID}', '${jobFamilyName}', '${capabilityID}')`)
+  return results;
 }

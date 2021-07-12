@@ -67,4 +67,11 @@ router.post("/deleteRole", async (req, res) => {
     res.json(result);
 })
 
+router.post("/postNewJobFamily", async (req, res) => {
+  var jobFamilyID = req.body.jobFamilyID;
+  var jobFamilyName = req.body.jobFamilyName;
+  var capabilityID = req.body.capabilityID;
+  res.json(await dbconnection.postJobFamily(jobFamilyID, jobFamilyName, capabilityID))
+})
+
 module.exports = router;
