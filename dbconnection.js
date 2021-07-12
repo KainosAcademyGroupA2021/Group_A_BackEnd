@@ -54,7 +54,7 @@ exports.getCapabilityAndJobFamily = async () => {
 
 
 exports.getTraingByBand = async() => {
-    let response = await db.query('Select BandID, BandLevel, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Training Using (TrainingID);')
+    let response = await db.query('Select BandID, BandLevel, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Band_Training USING (BandID) JOIN Training Using (TrainingID);')
     return response;
 }
 
@@ -90,7 +90,12 @@ exports.deleteRole = async (id) => {
     return results;
 }
 
-exports.postJobFamily = async (jobFamilyID, jobFamilyName, capabilityID) => {
-  let results = await db.query(`INSERT INTO JobFamily (JobFamilyID, JobFamilyName, CapabilityID) VALUES ('${jobFamilyID}', '${jobFamilyName}', '${capabilityID}')`)
+exports.addJobFamily = async (newJobFamily) => {
+  let results = await db.query('INSERT INTO JobFamily SET ?',  newJobFamily)
   return results;
+}
+
+exports.deleteJobFamily = async (id) => {
+    let results = await db.query('DELETE FROM JobFamily WHERE JobFamilyID = ?', id);
+    return results;
 }

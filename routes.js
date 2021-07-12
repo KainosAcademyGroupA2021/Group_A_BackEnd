@@ -67,11 +67,19 @@ router.post("/deleteRole", async (req, res) => {
     res.json(result);
 })
 
-router.post("/postNewJobFamily", async (req, res) => {
-  var jobFamilyID = req.body.jobFamilyID;
-  var jobFamilyName = req.body.jobFamilyName;
-  var capabilityID = req.body.capabilityID;
-  res.json(await dbconnection.postJobFamily(jobFamilyID, jobFamilyName, capabilityID))
+router.post("/addNewJobFamily", async (req, res) => {
+  let result;
+  if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
+      result = "Bad request"
+  } else {
+      result = await dbconnection.addJobFamily(req.body);
+  }
+  res.json(result);
+})
+
+router.post("/deleteJobFamily", async (req, res) => {
+    let result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
+    res.json(result);
 })
 
 module.exports = router;
