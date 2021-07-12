@@ -275,3 +275,55 @@ describe("Band responsibilites testing", () => {
 
   })
 })
+
+describe("Capability Leads testing", () => {
+  it("/getCapabilityLeads return list of Capability leads", done=> {
+    request(app)
+    .get("/getCapabilityLeads")
+    .expect("Content-Type", /json/)
+    .expect(200)
+    .then(response => {
+      assert(response.body[0], {
+        CapabilityLeadID: 1,
+        CapabilityLeadName: 'Aislinn McBride',
+        CapabilityLeadPhoto: 'url',
+        CapabilityLeadMessage: 'Capability Lead message',
+      })
+      done();
+    })
+    .catch(err => done(err))
+
+  })
+})
+
+describe("Add Capability post Route Testing", () => {
+  it("/addCapability will successfully add a Capability", done => {
+    request(app)
+      .post("/addCapability")
+      .send({
+        CapabilityName: 'TestCapability',
+        CapabilityLeadID: 1
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .post("/deleteCapability")
+          .send({
+            CapabilityID: id
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})

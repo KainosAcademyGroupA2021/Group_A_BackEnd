@@ -105,8 +105,21 @@ exports.getCompetencies = async () => {
     return response;
 }
 
-
+exports.getCapabilityLeads = async () => {
+    let response = await db.query('SELECT * FROM CapabilityLeads;')
+    return response;
+}
 exports.getTrainings = async () => {
     let response = await db.query('SELECT * FROM Training;')
     return response;
+}
+
+exports.addCapability = async (Capability) => {
+    let results = await db.query('INSERT INTO Capability SET ?', Capability);
+    return results.insertId;
+}
+
+exports.deleteCapability = async (id) => {
+    let results = await db.query('DELETE FROM Capability WHERE CapabilityID = ?', id);
+    return results;
 }
