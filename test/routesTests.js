@@ -229,6 +229,40 @@ describe("Add role post Route Testing", () => {
   })
 })
 
+describe("Add band post Route Testing", () => {
+  it("/addBand will successfully add a role", done => {
+    request(app)
+      .post("/addBand")
+      .send({
+        RoleName: 'TestRole',
+        RoleSpec: 'TestLink',
+        JobFamilyID: '1',
+        BandID: '9'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .post("/deleteRole")
+          .send({
+            RoleID: id
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
 
 describe("Band responsibilites testing", () => {
   it("/getBandResponsibilities return list of band responsibities", done=> {
@@ -250,6 +284,4 @@ describe("Band responsibilites testing", () => {
     .catch(err => done(err))
 
   })
-
-
 })
