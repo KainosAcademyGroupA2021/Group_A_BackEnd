@@ -57,9 +57,8 @@ describe("Bands Route Testing", () => {
         assert.deepStrictEqual(response.body[0], {
           BandID: 2,
           BandName: 'Apprentice',
-          BandLevel: 1,
+          BandLevel: 8,
           Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
-          TrainingID: 1,
           CompetenciesID: 2
         })
         done();
@@ -76,8 +75,6 @@ describe("Capability and Job Family endpoint test", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
@@ -122,7 +119,6 @@ describe("Band Competencies testing", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
 
         assert(response.body[0], {
           BandName: 'Trainee',
@@ -142,8 +138,6 @@ describe("Capability and Job Family endpoint test", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
@@ -164,8 +158,6 @@ describe("Band Competencies testing", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           BandName: 'Trainee',
           BandLevel: 7,
@@ -238,12 +230,10 @@ describe("Band responsibilites testing", () => {
     .expect("Content-Type", /json/)
     .expect(200)
     .then(response => {
-      console.log(response.body)
-
       assert(response.body[0], {
         BandID: 2,
         BandName: 'Apprentice',
-        BandLevel: '1',
+        BandLevel: '8',
         Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
       })
       done();
