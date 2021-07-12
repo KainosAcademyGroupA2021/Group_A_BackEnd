@@ -119,7 +119,6 @@ describe("Band Competencies testing", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-
         assert(response.body[0], {
           BandName: 'Trainee',
           BandLevel: 7,
@@ -222,6 +221,40 @@ describe("Add role post Route Testing", () => {
   })
 })
 
+describe("Add band post Route Testing", () => {
+  it("/addBand will successfully add a role", done => {
+    request(app)
+      .post("/addBand")
+      .send({
+        BandName: 'TestBand',
+        BandLevel: 1,
+        CompetencyID: 1,
+        Responsibilities: 'Test Responsibility'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .post("/deleteBand")
+          .send({
+            BandID: id
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
 
 describe("Band responsibilites testing", () => {
   it("/getBandResponsibilities return list of band responsibities", done=> {
@@ -241,6 +274,4 @@ describe("Band responsibilites testing", () => {
     .catch(err => done(err))
 
   })
-
-
 })
