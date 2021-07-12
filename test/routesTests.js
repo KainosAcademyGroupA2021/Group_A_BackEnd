@@ -19,6 +19,7 @@ describe("Job roles testing", () => {
           RoleID: 2,
           RoleName: 'Software Engineer',
           RoleSpec: 'link to spec',
+          RoleSpecSummary: 'As a Trainee Software Engineer with Kainos, you will work on projects where you can make a real difference to people’s lives – the lives of people you know.',
           CapabilityName: 'Engineering',
           BandName: 'Trainee'
         })
@@ -91,7 +92,6 @@ describe("Capability and Job Family endpoint test", () => {
 describe("Training by band", () => {
   it("/getTrainingByBand return list of trainings by band ", done => {
     request(app)
-
     .get("/getTrainingByBand")
     .expect("Content-Type", /json/)
     .expect(200)

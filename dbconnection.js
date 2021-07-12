@@ -29,7 +29,7 @@ function wrapDB(dbconfig) {
 const db = wrapDB(dbconfig);
 
 exports.getJobRoles = async () => {
-    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, CapabilityName, BandName, BandLevel FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
+    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
     return response;
 }
 
@@ -68,12 +68,6 @@ exports.getBands = async () => {
 }
 
 
-exports.getJobRolesSpecifications = async (name) => {
-    console.log(name);
-    let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
-    
-
-}
 
 exports.getBandCompetencies = async () => {
     let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Competencies USING (CompetenciesID);');
