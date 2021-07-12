@@ -75,8 +75,6 @@ describe("Capability and Job Family endpoint test", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
@@ -121,8 +119,6 @@ describe("Band Competencies testing", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           BandName: 'Trainee',
           BandLevel: 7,
@@ -141,8 +137,6 @@ describe("Capability and Job Family endpoint test", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
@@ -163,8 +157,6 @@ describe("Band Competencies testing", () => {
       .expect("Content-Type", /json/)
       .expect(200)
       .then(response => {
-        console.log(response.body)
-
         assert(response.body[0], {
           BandName: 'Trainee',
           BandLevel: 7,
@@ -234,10 +226,10 @@ describe("Add band post Route Testing", () => {
     request(app)
       .post("/addBand")
       .send({
-        RoleName: 'TestRole',
-        RoleSpec: 'TestLink',
-        JobFamilyID: '1',
-        BandID: '9'
+        BandName: 'TestBand',
+        BandLevel: 1,
+        CompetencyID: 1,
+        Responsibilities: 'Test Responsibility'
       })
       .set('Accept', 'application/json')
       .expect("Content-Type", /json/)
@@ -247,9 +239,9 @@ describe("Add band post Route Testing", () => {
       })
       .then((id) => {
         request(app)
-          .post("/deleteRole")
+          .post("/deleteBand")
           .send({
-            RoleID: id
+            BandID: id
           })
           .set('Accept', 'application/json')
           .expect("Content-Type", /json/)
@@ -271,8 +263,6 @@ describe("Band responsibilites testing", () => {
     .expect("Content-Type", /json/)
     .expect(200)
     .then(response => {
-      console.log(response.body)
-
       assert(response.body[0], {
         BandID: 2,
         BandName: 'Apprentice',

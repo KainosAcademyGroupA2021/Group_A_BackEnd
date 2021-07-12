@@ -32,13 +32,13 @@ router.get("/getBands", async (req, res) => {
 
 
 router.get("/getBandResponsibilities", async (req, res) => {
-  res.json(await dbconnection.getBandResponsibilities());
+    res.json(await dbconnection.getBandResponsibilities());
 })
 
 
 router.get("/getCapabilityAndJobFamily", async (req, res) => {
-  res.json(await dbconnection.getCapabilityAndJobFamily());
- })
+    res.json(await dbconnection.getCapabilityAndJobFamily());
+})
 
 
 router.get("/getTrainingByBand", async (req, res) => {
@@ -78,25 +78,35 @@ router.post("/deleteRole", async (req, res) => {
     res.json(result);
 })
 
+router.post("/deleteBand", async (req, res) => {
+    let result = await dbconnection.deleteBand(req.body.BandID);
+    res.json(result);
+})
+
 
 router.post("/addBand", async (req, res) => {
     let result;
+    let insertId;
     console.log(req.body)
     if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.CompetencyID === "" || req.body.Responsibilities === "") {
         result = "Bad request"
+        console.log("bad request")
     } else {
-        let insertId = await dbconnection.addBand(
+        console.log("Adding Band")
+        insertId = await dbconnection.addBand(
             {
                 BandName: req.body.BandName,
                 BandLevel: req.body.BandLevel,
                 CompetenciesID: req.body.CompetencyID,
                 Responsibilities: req.body.Responsibilities
             });
+        if (req.body.TrainingsList) {
         for (let TrainingID of req.body.TrainingsList) {
             result = await dbconnection.addBandTraining(TrainingID, insertId);
         }
     }
-    res.json(result);
+    }
+    res.json(insertId);
 })
 
 module.exports = router;

@@ -90,6 +90,11 @@ exports.deleteRole = async (id) => {
     return results;
 }
 
+exports.deleteBand = async (id) => {
+    let results = await db.query('DELETE FROM Band WHERE BandID = ?', id);
+    return results;
+}
+
 exports.addBand = async (Band) => {
     let results = await db.query('INSERT INTO Band SET ?', Band);
     return results.insertId;
