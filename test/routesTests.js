@@ -266,7 +266,7 @@ describe("Band responsibilites testing", () => {
       assert(response.body[0], {
         BandID: 2,
         BandName: 'Apprentice',
-        BandLevel: '1',
+        BandLevel: '8',
         Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
       })
       done();
