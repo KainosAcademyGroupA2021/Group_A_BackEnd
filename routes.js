@@ -65,7 +65,7 @@ router.get("/getCompetencies", async (req, res) => {
 
 router.post("/addRole", async (req, res) => {
     let result;
-    if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "") {
+    if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
         result = "Bad request"
     } else {
         result = await dbconnection.addRole(req.body);
