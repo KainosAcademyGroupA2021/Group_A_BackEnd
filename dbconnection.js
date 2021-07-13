@@ -123,3 +123,12 @@ exports.deleteCapability = async (id) => {
     let results = await db.query('DELETE FROM Capability WHERE CapabilityID = ?', id);
     return results;
 }
+
+exports.editCapability = async (Capability, id) => {
+    let results = await db.query('UPDATE Capability SET ? WHERE CapabilityID = ?', Capability, id);
+    return results;
+}
+exports.getCapabilityByID = async (id) => {
+    let response = await db.query('SELECT * FROM Capability WHERE CapabilityID = ?', id);
+    return response;
+}
