@@ -118,7 +118,7 @@ exports.getCompetencies = async () => {
 }
 
 exports.getCapabilityLeads = async () => {
-    let response = await db.query('SELECT * FROM CapabilityLeads;')
+    let response = await db.query('SELECT * FROM JobRoleDatabase.CapabilityLeads JOIN Capability USING (CapabilityLeadID);')
     return response;
 }
 exports.getTrainings = async () => {
