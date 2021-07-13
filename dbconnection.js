@@ -67,7 +67,10 @@ exports.getBands = async () => {
     return response;
 }
 
-
+exports.getJobRolesSpecifications = async (name) => {
+    console.log(name);
+    let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
+}
 
 
 exports.getBandCompetencies = async () => {
@@ -96,6 +99,16 @@ exports.getRoleWithCapabilityID = async (id) => {
     return response;
 }
 
+exports.addJobFamily = async (newJobFamily) => {
+  let results = await db.query('INSERT INTO JobFamily SET ?',  newJobFamily)
+  return results;
+}
+
+exports.deleteJobFamily = async (id) => {
+    let results = await db.query('DELETE FROM JobFamily WHERE JobFamilyID = ?', id);
+    return results;
+}
+
 exports.deleteBand = async (id) => {
     let results = await db.query('DELETE FROM Band WHERE BandID = ?', id);
     return results;
@@ -110,7 +123,6 @@ exports.addBandTraining = async (trainingID, bandID) => {
     let results = await db.query('INSERT INTO Band_Training VALUES (?, ?)', [trainingID, bandID]);
     return results.insertId;
 }
-
 
 exports.getCompetencies = async () => {
     let response = await db.query('SELECT * FROM Competencies;')
