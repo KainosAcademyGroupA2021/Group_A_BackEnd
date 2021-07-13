@@ -221,6 +221,58 @@ describe("Add role post Route Testing", () => {
   })
 })
 
+describe("Edit role post Route Testing", () => {
+  it("/editRole will successfully add and then edit a role and then delete it", done => {
+    request(app)
+      .post("/addRole")
+      .send({
+        RoleName: 'TestRole',
+        RoleSpec: 'TestLink',
+        RoleSpecSummary: 'TestSummary',
+        JobFamilyID: '1',
+        BandID: '9'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editRole/"+id)
+          .send({
+            RoleName: 'EditedRole',
+            RoleSpec: 'EditedLink',
+            RoleSpecSummary: 'EditedSummary',
+            JobFamilyID: '1',
+            BandID: '5'
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteRole")
+              .send({
+                RoleID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
 describe("Add band post Route Testing", () => {
   it("/addBand will successfully add a role", done => {
     request(app)
