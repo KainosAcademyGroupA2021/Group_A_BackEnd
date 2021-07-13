@@ -70,7 +70,7 @@ exports.getBands = async () => {
 
 
 exports.getBandCompetencies = async () => {
-    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Competencies USING (CompetenciesID);');
+    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Competencies USING (CompetenciesID) ORDER BY BandLevel;');
     return result;
 }
 
