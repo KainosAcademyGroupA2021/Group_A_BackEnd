@@ -65,12 +65,26 @@ router.get("/getCapabilityLeads", async (req, res) => {
 })
 
 
+router.get("/getRoleWithCapabilityID/:id", async (req, res) => {
+    res.json(await dbconnection.getRoleWithCapabilityID(req.params.id));
+})
+
 router.post("/addRole", async (req, res) => {
     let result;
-    if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "") {
-        result = "Bad request"
+    if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
+        result = {error: "Empty inputs"}
     } else {
         result = await dbconnection.addRole(req.body);
+    }
+    res.json(result);
+})
+
+router.put("/editRole/:id", async (req, res) => {
+    let result;
+    if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
+        result = {error: "Empty inputs"}
+    } else {
+        result = await dbconnection.editRole(req.body, req.params.id);
     }
     res.json(result);
 })
@@ -80,8 +94,24 @@ router.post("/deleteRole", async (req, res) => {
     res.json(result);
 })
 
+router.post("/addNewJobFamily", async (req, res) => {
+  let result;
+  if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
+      result = "Bad request"
+  } else {
+      result = await dbconnection.addJobFamily(req.body);
+  }
+  res.json(result);
+})
+
+router.post("/deleteJobFamily", async (req, res) => {
+   let result;
+   result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
+   res.json(result);
+})
+
 router.post("/deleteBand", async (req, res) => {
-    let result = await dbconnection.deleteBand(req.body.BandID);
+    let result = await dbconnection.deleteBand(req.body.BandID);1
     res.json(result);
 })
 
@@ -89,7 +119,6 @@ router.post("/deleteBand", async (req, res) => {
 router.post("/addBand", async (req, res) => {
     let result;
     let insertId;
-    console.log(req.body)
     if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.CompetencyID === "" || req.body.Responsibilities === "") {
         result = "Bad request"
         console.log("bad request")

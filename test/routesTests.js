@@ -223,6 +223,58 @@ describe("Add role post Route Testing", () => {
   })
 })
 
+describe("Edit role post Route Testing", () => {
+  it("/editRole will successfully add and then edit a role and then delete it", done => {
+    request(app)
+      .post("/addRole")
+      .send({
+        RoleName: 'TestRole',
+        RoleSpec: 'TestLink',
+        RoleSpecSummary: 'TestSummary',
+        JobFamilyID: '1',
+        BandID: '9'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editRole/"+id)
+          .send({
+            RoleName: 'EditedRole',
+            RoleSpec: 'EditedLink',
+            RoleSpecSummary: 'EditedSummary',
+            JobFamilyID: '1',
+            BandID: '5'
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteRole")
+              .send({
+                RoleID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
 describe("Add band post Route Testing", () => {
   it("/addBand will successfully add a role", done => {
     request(app)
@@ -289,7 +341,9 @@ describe("Capability Leads testing", () => {
         CapabilityLeadID: 1,
         CapabilityLeadName: 'Aislinn McBride',
         CapabilityLeadPhoto: 'url',
-        CapabilityLeadMessage: 'Capability Lead message'
+        CapabilityLeadMessage: 'Capability Lead message',
+        CapabilityID: '1',
+        CapabilityName: 'Engineering'
       })
       done();
     })
@@ -376,3 +430,34 @@ describe("Edit Capability post Route Testing", () => {
   })
 })
 
+describe("Add Job Family Route Testing", () => {
+  it("/addJobFamily will successfully add a Job Family", done => {
+    request(app)
+      .post("/addNewJobFamily")
+      .send({
+        JobFamilyName: "Unit test",
+        CapabilityID: "1"
+      })
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        console.log(id.insertId);
+        request(app)
+          .post("/deleteJobFamily")
+          .send({
+            JobFamilyID: id.insertId
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
