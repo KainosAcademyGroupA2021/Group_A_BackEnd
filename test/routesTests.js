@@ -89,6 +89,7 @@ describe("Capability and Job Family endpoint test", () => {
 
 })
 
+
 describe("Training by band", () => {
   it("/getTrainingByBand return list of trainings by band ", done => {
     request(app)
@@ -167,6 +168,7 @@ describe("Band Competencies testing", () => {
       .catch(err => done(err))
   })
 })
+
 
 describe("Capability Route Testing", () => {
   it("/getCapabilities return list of job families", done => {
@@ -287,7 +289,7 @@ describe("Capability Leads testing", () => {
         CapabilityLeadID: 1,
         CapabilityLeadName: 'Aislinn McBride',
         CapabilityLeadPhoto: 'url',
-        CapabilityLeadMessage: 'Capability Lead message',
+        CapabilityLeadMessage: 'Capability Lead message'
       })
       done();
     })
@@ -327,3 +329,50 @@ describe("Add Capability post Route Testing", () => {
       .catch(err => done(err))
   })
 })
+
+describe("Edit Capability post Route Testing", () => {
+  it("/editCapability will successfully add then edit a Capability and then delete it", done => {
+    request(app)
+      .post("/addCapability")
+      .send({
+        CapabilityName: 'TestCapability',
+        CapabilityID: '9'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editCapability/"+id)
+          .send({
+            CapabilityName: 'EditedCapability',
+            CapabilityID: '5'
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteCapability")
+              .send({
+                CapabilityID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+

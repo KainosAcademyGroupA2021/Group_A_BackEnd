@@ -121,15 +121,15 @@ router.post("/addCapability", async (req, res) => {
     res.json(result);
 })
 
-router.get("/getCapabilityByID", async (req, res) => {
-    res.json(await dbconnection.getCapabilityByID(req.body.CapabilityID));
+router.get("/getCapabilityByID/:id", async (req, res) => {
+    res.json(await dbconnection.getCapabilityByID(req.params.id));
 })
-router.put("/editCapability", async (req, res) => {
+router.put("/editCapability/:id", async (req, res) => {
     let result;
     if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
         result = "Bad request"
     } else {
-        result = await dbconnection.editCapability(req.body);
+        result = await dbconnection.editCapability(req.body, req.params.id);
     }
     res.json(result);
 })
