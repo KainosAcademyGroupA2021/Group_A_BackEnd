@@ -288,6 +288,8 @@ describe("Capability Leads testing", () => {
         CapabilityLeadName: 'Aislinn McBride',
         CapabilityLeadPhoto: 'url',
         CapabilityLeadMessage: 'Capability Lead message',
+        CapabilityID: '1',
+        CapabilityName: 'Engineering'
       })
       done();
     })
