@@ -46,7 +46,7 @@
     "/getCapabilities": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID",
         "parameters": [],
         "responses": {}
       }
@@ -54,7 +54,7 @@
     "/getBands": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID",
         "parameters": [],
         "responses": {}
       }
@@ -62,7 +62,7 @@
     "/getBandResponsibilities": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilities",
         "parameters": [],
         "responses": {}
       }
@@ -70,7 +70,7 @@
     "/getCapabilityAndJobFamily": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all capabilities and job familes that relate to them and returns CapabilityName, JobFamilyName",
         "parameters": [],
         "responses": {}
       }
@@ -78,7 +78,7 @@
     "/getTrainingByBand": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all Training by band and returns BandID, BandLevel, TrainingType, BandName, TrainingName, TrainingLink",
         "parameters": [],
         "responses": {}
       }
@@ -86,7 +86,7 @@
     "/getBandCompetencies": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all band Competencies and returns BandName, BandLevel, CompetenciesName",
         "parameters": [],
         "responses": {}
       }
@@ -94,7 +94,7 @@
     "/getTrainings": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink",
         "parameters": [],
         "responses": {}
       }
@@ -102,7 +102,7 @@
     "/getCompetencies": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all competencies and returns CompetenciesID, CompetenciesName",
         "parameters": [],
         "responses": {}
       }
@@ -110,7 +110,7 @@
     "/getCapabilityLeads": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all capability leads and returns CapabilityLeadID, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage, CapabilityID, CapabilityName",
         "parameters": [],
         "responses": {}
       }
@@ -118,7 +118,7 @@
     "/getRoleWithCapabilityID/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets all roles with a capability id and returns CapabilityID, JobFamilyID, RoleID, RoleName, RoleSpec, BandID, RoleSpecSummary, JobFamilyName, CapabilityName, CapabilityLeadID",
         "parameters": [
           {
             "name": "id",
@@ -133,7 +133,7 @@
     "/addRole": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "posts a new role with RoleName, RoleSpec, JobFamilyID, BandID, RoleSpecSummary",
         "parameters": [
           {
             "name": "obj",
@@ -166,7 +166,7 @@
     "/editRole/{id}": {
       "put": {
         "tags": [],
-        "description": "",
+        "description": "puts an existing role with RoleName, RoleSpec, JobFamilyID, BandID, RoleSpecSummary",
         "parameters": [
           {
             "name": "id",
@@ -205,7 +205,7 @@
     "/deleteRole": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "deletes an existing role by RoleID",
         "parameters": [
           {
             "name": "obj",
@@ -226,7 +226,7 @@
     "/addNewJobFamily": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "adds a new job family with JobFamilyName, CapabilityID",
         "parameters": [
           {
             "name": "obj",
@@ -250,7 +250,7 @@
     "/deleteJobFamily": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "deletes an existing JobFamily by JobFamilyID",
         "parameters": [
           {
             "name": "obj",
@@ -271,7 +271,7 @@
     "/deleteBand": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "deletes an existing band by BandID",
         "parameters": [
           {
             "name": "obj",
@@ -292,7 +292,7 @@
     "/addBand": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "adds a new band with BandName, BandLevel, CompetencyID, Responsibilities, TrainingsList",
         "parameters": [
           {
             "name": "obj",
@@ -325,7 +325,7 @@
     "/addCapability": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "adds a new capability with CapabilityName, CapabilityLeadID",
         "parameters": [
           {
             "name": "obj",
@@ -349,7 +349,7 @@
     "/deleteCapability": {
       "post": {
         "tags": [],
-        "description": "",
+        "description": "deletes an existing capability by CapabilityID",
         "parameters": [
           {
             "name": "obj",

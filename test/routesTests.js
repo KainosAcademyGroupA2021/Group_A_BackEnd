@@ -396,7 +396,6 @@ describe("Add Job Family Route Testing", () => {
         return response.body;
       })
       .then((id) => {
-        console.log(id.insertId);
         request(app)
           .post("/deleteJobFamily")
           .send({
