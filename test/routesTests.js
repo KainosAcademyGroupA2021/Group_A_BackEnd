@@ -327,3 +327,35 @@ describe("Add Capability post Route Testing", () => {
       .catch(err => done(err))
   })
 })
+
+describe("Add Job Family Route Testing", () => {
+  it("/addJobFamily will successfully add a Job Family", done => {
+    request(app)
+      .post("/addNewJobFamily")
+      .send({
+        JobFamilyName: "Unit test",
+        CapabilityID: "1"
+      })
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        console.log(id.insertId);
+        request(app)
+          .post("/deleteJobFamily")
+          .send({
+            JobFamilyID: id.insertId
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})

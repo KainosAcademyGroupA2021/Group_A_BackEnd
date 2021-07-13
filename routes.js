@@ -80,6 +80,22 @@ router.post("/deleteRole", async (req, res) => {
     res.json(result);
 })
 
+router.post("/addNewJobFamily", async (req, res) => {
+  let result;
+  if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
+      result = "Bad request"
+  } else {
+      result = await dbconnection.addJobFamily(req.body);
+  }
+  res.json(result);
+})
+
+router.post("/deleteJobFamily", async (req, res) => {
+   let result;
+   result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
+   res.json(result);
+})
+
 router.post("/deleteBand", async (req, res) => {
     let result = await dbconnection.deleteBand(req.body.BandID);
     res.json(result);
