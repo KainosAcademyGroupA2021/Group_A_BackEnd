@@ -5,7 +5,11 @@ const dbconnection = require('./dbconnection.js');
 
 const bodyParser = require("body-parser");
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swaggerFile.json')
+
 router.use(express.urlencoded({ extended: true }));
+router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile, {explorer: true}))
 router.use(bodyParser.json());
 
 router.use(cors());
@@ -15,38 +19,46 @@ router.get("/", (req, res) => {
 });
 
 router.get("/getJobRoles", async (req, res) => {
+   // #swagger.description = 'gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel'
     res.json(await dbconnection.getJobRoles());
 })
 
 router.get("/getJobFamilies", async (req, res) => {
+  // #swagger.description = 'gets all job families and returns JobFamilyID, JobFamilyName and CapabilityID'
     res.json(await dbconnection.getJobFamilies());
 })
 
 router.get("/getCapabilities", async (req, res) => {
+  // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
     res.json(await dbconnection.getCapabilities());
 })
 
 router.get("/getBands", async (req, res) => {
+  // #swagger.description = 'gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID'
     res.json(await dbconnection.getBands());
 })
 
 
 router.get("/getBandResponsibilities", async (req, res) => {
+  // #swagger.description = 'gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilities'
     res.json(await dbconnection.getBandResponsibilities());
 })
 
 
 router.get("/getCapabilityAndJobFamily", async (req, res) => {
+  // #swagger.description = 'gets all capabilities and job familes that relate to them and returns CapabilityName, JobFamilyName'
     res.json(await dbconnection.getCapabilityAndJobFamily());
 })
 
 
 router.get("/getTrainingByBand", async (req, res) => {
+  // #swagger.description = 'gets all Training by band and returns BandID, BandLevel, TrainingType, BandName, TrainingName, TrainingLink'
     res.json(await dbconnection.getTraingByBand())
 })
 
 
 router.get("/getBandCompetencies", async (req, res) => {
+    // #swagger.description = 'gets all band Competencies and returns BandName, BandLevel, CompetenciesName'
     res.json(await dbconnection.getBandCompetencies());
 })
 
