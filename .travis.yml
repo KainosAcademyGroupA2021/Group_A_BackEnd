@@ -5,3 +5,4 @@ before_script:
   - npm install -g artillery
 script:
   - artillery run performanceTests.yml
+  - npm test
