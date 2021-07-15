@@ -387,6 +387,8 @@ describe("Capability Leads testing", () => {
         CapabilityLeadName: 'Aislinn McBride',
         CapabilityLeadPhoto: 'url',
         CapabilityLeadMessage: 'Capability Lead message',
+        CapabilityID: '1',
+        CapabilityName: 'Engineering'
       })
       done();
     })
@@ -414,6 +416,37 @@ describe("Add Capability post Route Testing", () => {
           .post("/deleteCapability")
           .send({
             CapabilityID: id
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
+describe("Add Job Family Route Testing", () => {
+  it("/addJobFamily will successfully add a Job Family", done => {
+    request(app)
+      .post("/addNewJobFamily")
+      .send({
+        JobFamilyName: "Unit test",
+        CapabilityID: "1"
+      })
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .post("/deleteJobFamily")
+          .send({
+            JobFamilyID: id.insertId
           })
           .set('Accept', 'application/json')
           .expect("Content-Type", /json/)

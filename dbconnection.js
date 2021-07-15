@@ -67,6 +67,11 @@ exports.getBands = async () => {
     return response;
 }
 
+exports.getJobRolesSpecifications = async (name) => {
+    console.log(name);
+    let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
+}
+
 exports.getBandCompetencies = async () => {
     let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Band_Competency USING(BandID) JOIN Competencies USING (CompetenciesID);');
     return result;
@@ -111,6 +116,16 @@ exports.getBand = async (id) => {
     let response = await db.query('SELECT * FROM Band WHERE BandID = ?;', id)
     return response;
 }
+  
+exports.addJobFamily = async (newJobFamily) => {
+  let results = await db.query('INSERT INTO JobFamily SET ?',  newJobFamily)
+  return results;
+}
+
+exports.deleteJobFamily = async (id) => {
+    let results = await db.query('DELETE FROM JobFamily WHERE JobFamilyID = ?', id);
+    return results;
+}
 
 exports.deleteBand = async (id) => {
     let results = await db.query('DELETE FROM Band WHERE BandID = ?', id);
@@ -137,11 +152,11 @@ exports.addBandTraining = async (trainingID, bandID) => {
     return results.insertId;
 }
 
+
 exports.addBandCompetency = async (competenciesID, bandID) => {
     let results = await db.query('INSERT INTO Band_Competency VALUES (?, ?)', [competenciesID, bandID]);
     return results.insertId;
 }
-
 
 exports.getCompetencies = async () => {
     let response = await db.query('SELECT * FROM Competencies;')
@@ -149,7 +164,7 @@ exports.getCompetencies = async () => {
 }
 
 exports.getCapabilityLeads = async () => {
-    let response = await db.query('SELECT * FROM CapabilityLeads;')
+    let response = await db.query('SELECT * FROM JobRoleDatabase.CapabilityLeads JOIN Capability USING (CapabilityLeadID);')
     return response;
 }
 exports.getTrainings = async () => {
