@@ -148,12 +148,15 @@ router.post("/deleteJobFamily", async (req, res) => {
 
 router.post("/deleteBand", async (req, res) => {
     //delete links in junction table associated with band
-    let result = await dbconnection.deleteAssociatedTrainingsWithBand(req.body.BandID);
-    result = await dbconnection.deleteAssociatedCompetenciesWithBand(req.body.BandID);
-    result = await dbconnection.deleteBand(req.body.BandID);
-  // #swagger.description = 'deletes an existing band by BandID'
-    res.json(result);
-
+    if (!await dbconnection.canDeleteBand(req.body.BandID)) {
+        res.json("error");
+    } else {
+        let result = await dbconnection.deleteAssociatedTrainingsWithBand(req.body.BandID);
+        result = await dbconnection.deleteAssociatedCompetenciesWithBand(req.body.BandID);
+        result = await dbconnection.deleteBand(req.body.BandID);
+      // #swagger.description = 'deletes an existing band by BandID'
+        res.json(result);
+    }
 })
 
 

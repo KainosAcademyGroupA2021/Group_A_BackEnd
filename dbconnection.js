@@ -42,23 +42,23 @@ exports.getJobFamilies = async () => {
 exports.getBandResponsibilities = async () => {
     let response = await db.query('SELECT BandID, BandName, BandLevel, Responsibilities FROM JobRoleDatabase.Band');
     return response;
-  }
+}
 
 
 
 exports.getCapabilityAndJobFamily = async () => {
-  let response = await db.query('SELECT CapabilityName, JobFamilyName FROM JobRoleDatabase.Capability JOIN JobFamily USING (CapabilityID);')
-  return response;
+    let response = await db.query('SELECT CapabilityName, JobFamilyName FROM JobRoleDatabase.Capability JOIN JobFamily USING (CapabilityID);')
+    return response;
 }
 
 
 
-exports.getTraingByBand = async() => {
+exports.getTraingByBand = async () => {
     let response = await db.query('Select BandID, BandLevel, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Band_Training USING (BandID) JOIN Training Using (TrainingID);')
     return response;
 }
 
-exports.getCapabilities= async () => {
+exports.getCapabilities = async () => {
     let response = await db.query('SELECT * FROM Capability;')
     return response
 }
@@ -121,10 +121,10 @@ exports.getBand = async (id) => {
     let response = await db.query('SELECT * FROM Band WHERE BandID = ?;', id)
     return response;
 }
-  
+
 exports.addJobFamily = async (newJobFamily) => {
-  let results = await db.query('INSERT INTO JobFamily SET ?',  newJobFamily)
-  return results;
+    let results = await db.query('INSERT INTO JobFamily SET ?', newJobFamily)
+    return results;
 }
 
 exports.deleteJobFamily = async (id) => {
@@ -133,8 +133,18 @@ exports.deleteJobFamily = async (id) => {
 }
 
 exports.deleteBand = async (id) => {
-    let results = await db.query('DELETE FROM Band WHERE BandID = ?', id);
-    return results;
+    try {
+        let results = await db.query('DELETE FROM Band WHERE BandID = ?', id);
+        return "success";
+    } catch (e) {
+        console.log(e)
+        return e;
+    }
+}
+
+exports.canDeleteBand = async (id) => {
+    let results = await db.query('SELECT * FROM Band JOIN Role USING (BandID) WHERE BandID = ?;', id)
+    return results.length === 0;
 }
 
 exports.deleteAssociatedTrainingsWithBand = async (id) => {
