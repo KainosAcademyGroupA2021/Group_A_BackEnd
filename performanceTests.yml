@@ -1,10 +1,40 @@
 config:
   target: "http://localhost:5000"
   phases:
-        - duration: 5
-          arrivalRate: 5
+    - duration: 1
+      arrivalRate: 5
+      name: Warm up
+    - duration: 2
+      arrivalRate: 5
+      rampTo: 10
+      name: Ramp up load
+    - duration: 2
+      arrivalRate: 50
+      name: Sustained load
 
 scenarios:
   - flow:
     - get:
         url: "/getJobRoles"
+    - get:
+        url: "/getJobFamilies"
+    - get:
+        url: "/getCapabilities"
+    - get:
+        url: "/getBands"
+    - get:
+        url: "/getBandResponsibilities"
+    - get:
+        url: "/getCapabilityAndJobFamily"
+    - get:
+        url: "/getTrainingByBand"
+    # - get:
+    #     url: "/getBandCompetencies"
+    - get:
+        url: "/getTrainings"
+    - get:
+        url: "/getCompetencies"
+    - get:
+        url: "/getCapabilityLeads"
+    - get:
+        url: "/getRoleWithCapabilityID/1"
