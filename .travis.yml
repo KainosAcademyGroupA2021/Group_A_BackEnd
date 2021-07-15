@@ -1,3 +1,7 @@
 language: node_js
 node_js:
   - 15
+before_script:
+  - npm install -g artillery
+script:
+  - artillery run -e development performanceTests.yml

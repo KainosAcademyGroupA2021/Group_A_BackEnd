@@ -1,0 +1,11 @@
+config:
+  environments:
+    development:
+      target: http://localhost:5000
+      phases:
+        - duration: 5
+        arrivalRate: 5
+
+scenarios:
+  -flow:
+    -get: /getJobRoles
