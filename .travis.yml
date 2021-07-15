@@ -4,4 +4,4 @@ node_js:
 before_script:
   - npm install -g artillery
 script:
-  - artillery run -e development performanceTests.yml
+  - artillery run performanceTests.yml
