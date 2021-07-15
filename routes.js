@@ -148,7 +148,6 @@ router.post("/deleteBand", async (req, res) => {
     result = await dbconnection.deleteAssociatedCompetenciesWithBand(req.body.BandID);
     result = await dbconnection.deleteBand(req.body.BandID);
   // #swagger.description = 'deletes an existing band by BandID'
-    let result = await dbconnection.deleteBand(req.body.BandID);1
     res.json(result);
 
 })
