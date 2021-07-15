@@ -1,0 +1,501 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Group A Swagger",
+    "description": "Documentation of Group As APIs, using swagger"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getJobRoles": {
+      "get": {
+        "tags": [],
+        "description": "gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getJobFamilies": {
+      "get": {
+        "tags": [],
+        "description": "gets all job families and returns JobFamilyID, JobFamilyName and CapabilityID",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getCapabilities": {
+      "get": {
+        "tags": [],
+        "description": "gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getBands": {
+      "get": {
+        "tags": [],
+        "description": "gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getBandResponsibilities": {
+      "get": {
+        "tags": [],
+        "description": "gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilities",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getCapabilityAndJobFamily": {
+      "get": {
+        "tags": [],
+        "description": "gets all capabilities and job familes that relate to them and returns CapabilityName, JobFamilyName",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getTrainingByBand": {
+      "get": {
+        "tags": [],
+        "description": "gets all Training by band and returns BandID, BandLevel, TrainingType, BandName, TrainingName, TrainingLink",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getBandCompetencies": {
+      "get": {
+        "tags": [],
+        "description": "gets all band Competencies and returns BandName, BandLevel, CompetenciesName",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getTrainings": {
+      "get": {
+        "tags": [],
+        "description": "gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getCompetencies": {
+      "get": {
+        "tags": [],
+        "description": "gets all competencies and returns CompetenciesID, CompetenciesName",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getCapabilityLeads": {
+      "get": {
+        "tags": [],
+        "description": "gets all capability leads and returns CapabilityLeadID, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage, CapabilityID, CapabilityName",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/getBand/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getAssociatedTrainingIDsWithBand/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getAssociatedCompetenciesIDsWithBand/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getRoleWithCapabilityID/{id}": {
+      "get": {
+        "tags": [],
+        "description": "gets all roles with a capability id and returns CapabilityID, JobFamilyID, RoleID, RoleName, RoleSpec, BandID, RoleSpecSummary, JobFamilyName, CapabilityName, CapabilityLeadID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/addRole": {
+      "post": {
+        "tags": [],
+        "description": "posts a new role with RoleName, RoleSpec, JobFamilyID, BandID, RoleSpecSummary",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "RoleName": {
+                  "example": "any"
+                },
+                "RoleSpec": {
+                  "example": "any"
+                },
+                "JobFamilyID": {
+                  "example": "any"
+                },
+                "BandID": {
+                  "example": "any"
+                },
+                "RoleSpecSummary": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/editRole/{id}": {
+      "put": {
+        "tags": [],
+        "description": "puts an existing role with RoleName, RoleSpec, JobFamilyID, BandID, RoleSpecSummary",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "RoleName": {
+                  "example": "any"
+                },
+                "RoleSpec": {
+                  "example": "any"
+                },
+                "JobFamilyID": {
+                  "example": "any"
+                },
+                "BandID": {
+                  "example": "any"
+                },
+                "RoleSpecSummary": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/deleteRole": {
+      "post": {
+        "tags": [],
+        "description": "deletes an existing role by RoleID",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "RoleID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/addNewJobFamily": {
+      "post": {
+        "tags": [],
+        "description": "adds a new job family with JobFamilyName, CapabilityID",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "JobFamilyName": {
+                  "example": "any"
+                },
+                "CapabilityID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/deleteJobFamily": {
+      "post": {
+        "tags": [],
+        "description": "deletes an existing JobFamily by JobFamilyID",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "JobFamilyID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/deleteBand": {
+      "post": {
+        "tags": [],
+        "description": "deletes an existing band by BandID",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "BandID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/addBand": {
+      "post": {
+        "tags": [],
+        "description": "adds a new band with BandName, BandLevel, CompetencyID, Responsibilities, TrainingsList",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "BandName": {
+                  "example": "any"
+                },
+                "BandLevel": {
+                  "example": "any"
+                },
+                "Responsibilities": {
+                  "example": "any"
+                },
+                "TrainingsList": {
+                  "example": "any"
+                },
+                "CompetenciesList": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/editBand/{id}": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "BandName": {
+                  "example": "any"
+                },
+                "BandLevel": {
+                  "example": "any"
+                },
+                "Responsibilities": {
+                  "example": "any"
+                },
+                "TrainingsList": {
+                  "example": "any"
+                },
+                "CompetenciesList": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/addCapability": {
+      "post": {
+        "tags": [],
+        "description": "adds a new capability with CapabilityName, CapabilityLeadID",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CapabilityName": {
+                  "example": "any"
+                },
+                "CapabilityLeadID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getCapabilityByID/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/editCapability/{id}": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CapabilityName": {
+                  "example": "any"
+                },
+                "CapabilityLeadID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/deleteCapability": {
+      "post": {
+        "tags": [],
+        "description": "deletes an existing capability by CapabilityID",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CapabilityID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {}
+}

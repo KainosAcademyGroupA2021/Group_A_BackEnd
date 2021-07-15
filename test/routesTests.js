@@ -65,8 +65,7 @@ describe("Bands Route Testing", () => {
           BandID: 2,
           BandName: 'Apprentice',
           BandLevel: 8,
-          Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
-          CompetenciesID: 2
+          Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. '
         })
         done();
       })
@@ -94,6 +93,7 @@ describe("Capability and Job Family endpoint test", () => {
   })
 
 })
+
 
 describe("Training by band", () => {
   it("/getTrainingByBand return list of trainings by band ", done => {
@@ -173,6 +173,7 @@ describe("Band Competencies testing", () => {
       .catch(err => done(err))
   })
 })
+
 
 describe("Capability Route Testing", () => {
   it("/getCapabilities return list of job families", done => {
@@ -286,7 +287,6 @@ describe("Add band post Route Testing", () => {
       .send({
         BandName: 'TestBand',
         BandLevel: 1,
-        CompetencyID: 1,
         Responsibilities: 'Test Responsibility'
       })
       .set('Accept', 'application/json')
@@ -306,6 +306,55 @@ describe("Add band post Route Testing", () => {
           .expect(200)
           .then(response => {
             done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
+describe("Edit band post Route Testing", () => {
+  it("/editBand will successfully add and then edit a band and then delete it", done => {
+    request(app)
+      .post("/addBand")
+      .send({
+        BandName: 'TestBand',
+        BandLevel: 1,
+        Responsibilities: 'Test Responsibility'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editBand/"+id)
+          .send({
+            BandName: 'Edited',
+            BandLevel: 1,
+            CompetencyID: 1,
+            Responsibilities: 'Edited Responsibility'
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteBand")
+              .send({
+                BandID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
           })
           .catch(err => done(err))
       })
@@ -388,6 +437,52 @@ describe("Add Capability post Route Testing", () => {
   })
 })
 
+describe("Edit Capability post Route Testing", () => {
+  it("/editCapability will successfully add then edit a Capability and then delete it", done => {
+    request(app)
+      .post("/addCapability")
+      .send({
+        CapabilityName: 'TestCapability',
+        CapabilityLeadID: '1'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editCapability/"+id)
+          .send({
+            CapabilityName: 'EditedCapability',
+            CapabilityLeadID: '2'
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteCapability")
+              .send({
+                CapabilityID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
 describe("Add Job Family Route Testing", () => {
   it("/addJobFamily will successfully add a Job Family", done => {
     request(app)
@@ -402,7 +497,6 @@ describe("Add Job Family Route Testing", () => {
         return response.body;
       })
       .then((id) => {
-        console.log(id.insertId);
         request(app)
           .post("/deleteJobFamily")
           .send({
