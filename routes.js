@@ -3,18 +3,34 @@ const router = express.Router()
 const cors = require('cors');
 const dbconnection = require('./dbconnection.js');
 
-const bodyParser = require("body-parser");
-
 router.use(express.urlencoded({ extended: true }));
-router.use(bodyParser.json());
+router.use(express.json());
 
 router.use(cors());
+
+const { JWT, JWTscopes } = require('./jwt')
+const jwksRsa = require('jwks-rsa');
+
+const checkJwt = JWT({
+    secret:  jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri:`https://dev-lager9zv.us.auth0.com/.well-known/jwks.json`
+    }),
+    audience: `http://my.api:50001`,
+    issuer: [`https://dev-lager9zv.us.auth0.com/`],
+    algorithms: ['RS256']
+});
+
+const checkScopes = JWTscopes(['read:secured']);
+const adminCheckScopes = JWTscopes(['read:secured', 'write:secured'], {checkAllScopes: true})
 
 router.get("/", (req, res) => {
     res.json({ hello: "world" });
 });
 
-router.get("/getJobRoles", async (req, res) => {
+router.get("/getJobRoles", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getJobRoles());
 })
 
@@ -30,31 +46,25 @@ router.get("/getBands", async (req, res) => {
     res.json(await dbconnection.getBands());
 })
 
-
 router.get("/getBandResponsibilities", async (req, res) => {
     res.json(await dbconnection.getBandResponsibilities());
 })
-
 
 router.get("/getCapabilityAndJobFamily", async (req, res) => {
     res.json(await dbconnection.getCapabilityAndJobFamily());
 })
 
-
 router.get("/getTrainingByBand", async (req, res) => {
     res.json(await dbconnection.getTraingByBand())
 })
-
 
 router.get("/getBandCompetencies", async (req, res) => {
     res.json(await dbconnection.getBandCompetencies());
 })
 
-
 router.get("/getTrainings", async (req, res) => {
     res.json(await dbconnection.getTrainings())
 })
-
 
 router.get("/getCompetencies", async (req, res) => {
     res.json(await dbconnection.getCompetencies());
@@ -63,7 +73,6 @@ router.get("/getCompetencies", async (req, res) => {
 router.get("/getCapabilityLeads", async (req, res) => {
     res.json(await dbconnection.getCapabilityLeads());
 })
-
 
 router.get("/getRoleWithCapabilityID/:id", async (req, res) => {
     res.json(await dbconnection.getRoleWithCapabilityID(req.params.id));
@@ -114,7 +123,6 @@ router.post("/deleteBand", async (req, res) => {
     let result = await dbconnection.deleteBand(req.body.BandID);1
     res.json(result);
 })
-
 
 router.post("/addBand", async (req, res) => {
     let result;

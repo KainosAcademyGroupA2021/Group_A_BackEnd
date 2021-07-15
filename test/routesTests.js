@@ -2,7 +2,13 @@ const routes = require("../routes.js");
 const request = require("supertest");
 const express = require("express");
 const assert = require("assert");
+const { replaceMiddleware } = require('../jwt');
+
 const app = express();
+
+// JWT and JWTscopes must be mocked for testing, otherwise tests using those middlewares will fail
+replaceMiddleware(routes, 'get', '/getJobRoles', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getJobRoles', 'JWTscopes', (req, res, next) => next());
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
