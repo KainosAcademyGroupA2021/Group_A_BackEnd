@@ -175,6 +175,19 @@ router.post("/addCapability", async (req, res) => {
     res.json(result);
 })
 
+router.get("/getCapabilityByID/:id", async (req, res) => {
+    res.json(await dbconnection.getCapabilityByID(req.params.id));
+})
+router.put("/editCapability/:id", async (req, res) => {
+    let result;
+    if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
+        result = "Bad request"
+    } else {
+        result = await dbconnection.editCapability(req.body, req.params.id);
+    }
+    res.json(result);
+})
+
 router.post("/deleteCapability", async (req, res) => {
   // #swagger.description = 'deletes an existing capability by CapabilityID'
     let result = await dbconnection.deleteCapability(req.body.CapabilityID);
