@@ -29,7 +29,7 @@ function wrapDB(dbconfig) {
 const db = wrapDB(dbconfig);
 
 exports.getJobRoles = async () => {
-    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID);')
+    let response = await db.query('SELECT RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel FROM JobRoleDatabase.Role JOIN JobFamily USING (JobFamilyID) JOIN Capability USING (CapabilityID) JOIN Band USING (BandID) ORDER BY BandLevel;')
     return response;
 }
 
