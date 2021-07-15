@@ -72,9 +72,8 @@ exports.getJobRolesSpecifications = async (name) => {
     let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
 }
 
-
 exports.getBandCompetencies = async () => {
-    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Competencies USING (CompetenciesID) ORDER BY BandLevel;');
+    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Band_Competency USING(BandID) JOIN Competencies USING (CompetenciesID) ORDER BY BandLevel;');
     return result;
 }
 
@@ -93,12 +92,31 @@ exports.editRole = async (Role, id) => {
     return results;
 }
 
+exports.editBand = async (Band, id) => {
+    let results = await db.query('UPDATE Band SET ? WHERE BandID = ?', [Band, id]);
+    return results;
+}
 
 exports.getRoleWithCapabilityID = async (id) => {
     let response = await db.query('SELECT * FROM Role JOIN JobFamily USING(JobFamilyID) JOIN Capability USING(CapabilityID) WHERE RoleID = ?;', id)
     return response;
 }
 
+exports.getAssociatedTrainingIDsWithBand = async (id) => {
+    let response = await db.query('SELECT TrainingID FROM Band JOIN Band_Training USING(BandID) WHERE BandID = ?;', id)
+    return response;
+}
+
+exports.getAssociatedCompetenciesIDsWithBand = async (id) => {
+    let response = await db.query('SELECT Band_Competency.CompetenciesID FROM Band JOIN Band_Competency USING(BandID) WHERE BandID = ?;', id)
+    return response;
+}
+
+exports.getBand = async (id) => {
+    let response = await db.query('SELECT * FROM Band WHERE BandID = ?;', id)
+    return response;
+}
+  
 exports.addJobFamily = async (newJobFamily) => {
   let results = await db.query('INSERT INTO JobFamily SET ?',  newJobFamily)
   return results;
@@ -114,6 +132,16 @@ exports.deleteBand = async (id) => {
     return results;
 }
 
+exports.deleteAssociatedTrainingsWithBand = async (id) => {
+    let results = await db.query('DELETE FROM Band_Training WHERE BandID = ?', id);
+    return results;
+}
+
+exports.deleteAssociatedCompetenciesWithBand = async (id) => {
+    let results = await db.query('DELETE FROM Band_Competency WHERE BandID = ?', id);
+    return results;
+}
+
 exports.addBand = async (Band) => {
     let results = await db.query('INSERT INTO Band SET ?', Band);
     return results.insertId;
@@ -121,6 +149,12 @@ exports.addBand = async (Band) => {
 
 exports.addBandTraining = async (trainingID, bandID) => {
     let results = await db.query('INSERT INTO Band_Training VALUES (?, ?)', [trainingID, bandID]);
+    return results.insertId;
+}
+
+
+exports.addBandCompetency = async (competenciesID, bandID) => {
+    let results = await db.query('INSERT INTO Band_Competency VALUES (?, ?)', [competenciesID, bandID]);
     return results.insertId;
 }
 

@@ -59,8 +59,7 @@ describe("Bands Route Testing", () => {
           BandID: 2,
           BandName: 'Apprentice',
           BandLevel: 8,
-          Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. ',
-          CompetenciesID: 2
+          Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. '
         })
         done();
       })
@@ -282,7 +281,6 @@ describe("Add band post Route Testing", () => {
       .send({
         BandName: 'TestBand',
         BandLevel: 1,
-        CompetencyID: 1,
         Responsibilities: 'Test Responsibility'
       })
       .set('Accept', 'application/json')
@@ -302,6 +300,55 @@ describe("Add band post Route Testing", () => {
           .expect(200)
           .then(response => {
             done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
+describe("Edit band post Route Testing", () => {
+  it("/editBand will successfully add and then edit a band and then delete it", done => {
+    request(app)
+      .post("/addBand")
+      .send({
+        BandName: 'TestBand',
+        BandLevel: 1,
+        Responsibilities: 'Test Responsibility'
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editBand/"+id)
+          .send({
+            BandName: 'Edited',
+            BandLevel: 1,
+            CompetencyID: 1,
+            Responsibilities: 'Edited Responsibility'
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteBand")
+              .send({
+                BandID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
           })
           .catch(err => done(err))
       })
