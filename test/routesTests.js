@@ -437,7 +437,7 @@ describe("Edit Capability post Route Testing", () => {
       .post("/addCapability")
       .send({
         CapabilityName: 'TestCapability',
-        CapabilityID: '9'
+        CapabilityLeadID: '1'
       })
       .set('Accept', 'application/json')
       .expect("Content-Type", /json/)
@@ -450,7 +450,7 @@ describe("Edit Capability post Route Testing", () => {
           .put("/editCapability/"+id)
           .send({
             CapabilityName: 'EditedCapability',
-            CapabilityID: '5'
+            CapabilityLeadID: '2'
           })
           .set('Accept', 'application/json')
           .expect("Content-Type", /json/)
