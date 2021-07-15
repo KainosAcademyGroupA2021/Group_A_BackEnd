@@ -64,6 +64,17 @@ router.get("/getCapabilityLeads", async (req, res) => {
     res.json(await dbconnection.getCapabilityLeads());
 })
 
+router.get("/getBand/:id", async (req, res) => {
+    res.json(await dbconnection.getBand(req.params.id));
+})
+
+router.get("/getAssociatedTrainingIDsWithBand/:id", async (req, res) => {
+    res.json(await dbconnection.getAssociatedTrainingIDsWithBand(req.params.id));
+})
+
+router.get("/getAssociatedCompetenciesIDsWithBand/:id", async (req, res) => {
+    res.json(await dbconnection.getAssociatedCompetenciesIDsWithBand(req.params.id));
+})
 
 router.get("/getRoleWithCapabilityID/:id", async (req, res) => {
     res.json(await dbconnection.getRoleWithCapabilityID(req.params.id));
@@ -72,7 +83,7 @@ router.get("/getRoleWithCapabilityID/:id", async (req, res) => {
 router.post("/addRole", async (req, res) => {
     let result;
     if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
-        result = {error: "Empty inputs"}
+        result = { error: "Empty inputs" }
     } else {
         result = await dbconnection.addRole(req.body);
     }
@@ -82,7 +93,7 @@ router.post("/addRole", async (req, res) => {
 router.put("/editRole/:id", async (req, res) => {
     let result;
     if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
-        result = {error: "Empty inputs"}
+        result = { error: "Empty inputs" }
     } else {
         result = await dbconnection.editRole(req.body, req.params.id);
     }
@@ -95,7 +106,10 @@ router.post("/deleteRole", async (req, res) => {
 })
 
 router.post("/deleteBand", async (req, res) => {
-    let result = await dbconnection.deleteBand(req.body.BandID);1
+    //delete links in junction table associated with band
+    let result = await dbconnection.deleteAssociatedTrainingsWithBand(req.body.BandID);
+    result = await dbconnection.deleteAssociatedCompetenciesWithBand(req.body.BandID);
+    result = await dbconnection.deleteBand(req.body.BandID);
     res.json(result);
 })
 
@@ -103,25 +117,57 @@ router.post("/deleteBand", async (req, res) => {
 router.post("/addBand", async (req, res) => {
     let result;
     let insertId;
-    if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.CompetencyID === "" || req.body.Responsibilities === "") {
+    if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.Responsibilities === "") {
         result = "Bad request"
         console.log("bad request")
     } else {
-        console.log("Adding Band")
         insertId = await dbconnection.addBand(
             {
                 BandName: req.body.BandName,
                 BandLevel: req.body.BandLevel,
-                CompetenciesID: req.body.CompetencyID,
                 Responsibilities: req.body.Responsibilities
             });
         if (req.body.TrainingsList) {
-        for (let TrainingID of req.body.TrainingsList) {
-            result = await dbconnection.addBandTraining(TrainingID, insertId);
+            for (let TrainingID of req.body.TrainingsList) {
+                result = await dbconnection.addBandTraining(TrainingID, insertId);
+            }
+        }
+        if (req.body.CompetenciesList) {
+            for (let CompetenciesID of req.body.CompetenciesList) {
+                result = await dbconnection.addBandCompetency(CompetenciesID, insertId);
+            }
         }
     }
-    }
     res.json(insertId);
+})
+
+router.put("/editBand/:id", async (req, res) => {
+    let result = "Bad Request";
+    let id = req.params.id;
+    if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.Responsibilities === "") {
+        result = "Bad request";
+        console.log("bad request");
+    } else {
+        result = await dbconnection.editBand(
+            {
+                BandName: req.body.BandName,
+                BandLevel: req.body.BandLevel,
+                Responsibilities: req.body.Responsibilities
+            });
+        if (req.body.TrainingsList) {
+            result = await dbconnection.deleteAssociatedTrainingsWithBand(id);
+            for (let TrainingID of req.body.TrainingsList) {
+                result = await dbconnection.addBandTraining(TrainingID, id);
+            }
+        }
+        if (req.body.CompetenciesList) {
+            result = await dbconnection.deleteAssociatedCompetenciesWithBand(id);
+            for (let CompetenciesID of req.body.CompetenciesList) {
+                result = await dbconnection.addBandCompetency(CompetenciesID, id);
+            }
+        }
+    }
+    res.json(id);
 })
 
 router.post("/addCapability", async (req, res) => {
