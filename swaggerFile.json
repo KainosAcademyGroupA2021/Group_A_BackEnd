@@ -115,6 +115,51 @@
         "responses": {}
       }
     },
+    "/getBand/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getAssociatedTrainingIDsWithBand/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getAssociatedCompetenciesIDsWithBand/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/getRoleWithCapabilityID/{id}": {
       "get": {
         "tags": [],
@@ -306,13 +351,52 @@
                 "BandLevel": {
                   "example": "any"
                 },
-                "CompetencyID": {
+                "Responsibilities": {
+                  "example": "any"
+                },
+                "TrainingsList": {
+                  "example": "any"
+                },
+                "CompetenciesList": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/editBand/{id}": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "BandName": {
+                  "example": "any"
+                },
+                "BandLevel": {
                   "example": "any"
                 },
                 "Responsibilities": {
                   "example": "any"
                 },
                 "TrainingsList": {
+                  "example": "any"
+                },
+                "CompetenciesList": {
                   "example": "any"
                 }
               }
@@ -327,6 +411,51 @@
         "tags": [],
         "description": "adds a new capability with CapabilityName, CapabilityLeadID",
         "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CapabilityName": {
+                  "example": "any"
+                },
+                "CapabilityLeadID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getCapabilityByID/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/editCapability/{id}": {
+      "put": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "obj",
             "in": "body",
