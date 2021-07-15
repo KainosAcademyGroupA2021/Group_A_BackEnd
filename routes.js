@@ -83,6 +83,10 @@ router.get("/getBand/:id", async (req, res) => {
     res.json(await dbconnection.getBand(req.params.id));
 })
 
+router.get("/getTakenBandLevels", async (req, res) => {
+    res.json(await dbconnection.getTakenBandLevels());
+})
+
 router.get("/getAssociatedTrainingIDsWithBand/:id", async (req, res) => {
     res.json(await dbconnection.getAssociatedTrainingIDsWithBand(req.params.id));
 })

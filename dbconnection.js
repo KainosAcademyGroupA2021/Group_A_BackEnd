@@ -67,6 +67,11 @@ exports.getBands = async () => {
     return response;
 }
 
+exports.getTakenBandLevels = async () => {
+    let response = await db.query('SELECT BandLevel FROM Band;')
+    return response;
+}
+
 exports.getJobRolesSpecifications = async (name) => {
     console.log(name);
     let results = await db.query(`SELECT RoleName, RoleSpec FROM JobRoleDatabase.Role where RoleName = '${name}' `)
