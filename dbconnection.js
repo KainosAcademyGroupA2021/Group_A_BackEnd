@@ -73,7 +73,7 @@ exports.getJobRolesSpecifications = async (name) => {
 }
 
 exports.getBandCompetencies = async () => {
-    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Band_Competency USING(BandID) JOIN Competencies USING (CompetenciesID);');
+    let result = await db.query('SELECT BandName, BandLevel, CompetenciesName FROM Band JOIN Band_Competency USING(BandID) JOIN Competencies USING (CompetenciesID) ORDER BY BandLevel;');
     return result;
 }
 
@@ -180,4 +180,13 @@ exports.addCapability = async (Capability) => {
 exports.deleteCapability = async (id) => {
     let results = await db.query('DELETE FROM Capability WHERE CapabilityID = ?', id);
     return results;
+}
+
+exports.editCapability = async (Capability, id) => {
+    let results = await db.query('UPDATE Capability SET ? WHERE CapabilityID = ?', [Capability, id]);
+    return results;
+}
+exports.getCapabilityByID = async (id) => {
+    let response = await db.query('SELECT CapabilityName, CapabilityLeadID FROM Capability WHERE CapabilityID = ?', id);
+    return response;
 }
