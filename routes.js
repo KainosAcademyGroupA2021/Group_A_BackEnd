@@ -36,7 +36,8 @@ router.get("/", (req, res) => {
 
 router.get("/getJobRoles", checkJwt, checkScopes, async (req, res) => {
    // #swagger.description = 'gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel'
-    res.json(await dbconnection.getJobRoles());
+    console.log(req.headers)
+   res.json(await dbconnection.getJobRoles());
 })
 
 router.get("/getJobFamilies", async (req, res) => {
@@ -64,7 +65,7 @@ router.get("/getCapabilityAndJobFamily", async (req, res) => {
     res.json(await dbconnection.getCapabilityAndJobFamily());
 })
 
-router.get("/getTrainingByBand", async (req, res) => {
+router.get("/getTrainingByBand", checkJwt, checkScopes,  async (req, res) => {
   // #swagger.description = 'gets all Training by band and returns BandID, BandLevel, TrainingType, BandName, TrainingName, TrainingLink'
     res.json(await dbconnection.getTraingByBand())
 })
