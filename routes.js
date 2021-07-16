@@ -39,6 +39,11 @@ router.get("/getJobRoles", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getJobRoles());
 })
 
+router.get("/getJobRolesAdmin", checkJwt, adminCheckScopes, async (req, res) => {
+    // #swagger.description = 'gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel'
+     res.json(await dbconnection.getJobRoles());
+ })
+
 router.get("/getJobFamilies", async (req, res) => {
   // #swagger.description = 'gets all job families and returns JobFamilyID, JobFamilyName and CapabilityID'
     res.json(await dbconnection.getJobFamilies());
@@ -110,7 +115,7 @@ router.get("/getRoleWithCapabilityID/:id", async (req, res) => {
     res.json(await dbconnection.getRoleWithCapabilityID(req.params.id));
 })
 
-router.post("/addRole", async (req, res) => {
+router.post("/addRole", checkJwt, adminCheckScopes, async (req, res) => {
   // #swagger.description = 'posts a new role with RoleName, RoleSpec, JobFamilyID, BandID, RoleSpecSummary'
     let result;
     if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
@@ -121,7 +126,7 @@ router.post("/addRole", async (req, res) => {
     res.json(result);
 })
 
-router.put("/editRole/:id", async (req, res) => {
+router.put("/editRole/:id", checkJwt, adminCheckScopes, async (req, res) => {
   // #swagger.description = 'puts an existing role with RoleName, RoleSpec, JobFamilyID, BandID, RoleSpecSummary'
     let result;
     if (req.body.RoleName === "" || req.body.RoleSpec === "" || req.body.JobFamilyID === "" || req.body.BandID === "" || req.body.RoleSpecSummary === "") {
@@ -132,7 +137,7 @@ router.put("/editRole/:id", async (req, res) => {
     res.json(result);
 })
 
-router.post("/deleteRole", async (req, res) => {
+router.post("/deleteRole", checkJwt, adminCheckScopes, async (req, res) => {
   // #swagger.description = 'deletes an existing role by RoleID'
     let result = await dbconnection.deleteRole(req.body.RoleID);
     res.json(result);
