@@ -1,8 +1,17 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const PORT = 50001;
+const https = require('https');
+const fs = require('fs');
 const routes = require('./routes.js')
 
 app.use('/', routes);
 
-app.listen(port, () => console.log(`Group A app listening on port ${port}!`));
+const options = {
+    key: fs.readFileSync('./security/cert.key'),
+    cert: fs.readFileSync('./security/cert.pem'),
+}
+
+const server = https
+    .createServer(options, app)
+    .listen(PORT, () => `server https listens on ${PORT}`);

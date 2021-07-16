@@ -3,22 +3,38 @@ const router = express.Router()
 const cors = require('cors');
 const dbconnection = require('./dbconnection.js');
 
-const bodyParser = require("body-parser");
-
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swaggerFile.json')
 
 router.use(express.urlencoded({ extended: true }));
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile, {explorer: true}))
-router.use(bodyParser.json());
+router.use(express.json());
 
 router.use(cors());
+
+const { JWT, JWTscopes } = require('./jwt')
+const jwksRsa = require('jwks-rsa');
+
+const checkJwt = JWT({
+    secret:  jwksRsa.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri:`https://dev-lager9zv.us.auth0.com/.well-known/jwks.json`
+    }),
+    audience: `http://my.api:50001`,
+    issuer: [`https://dev-lager9zv.us.auth0.com/`],
+    algorithms: ['RS256']
+});
+
+const checkScopes = JWTscopes(['read:secured']);
+const adminCheckScopes = JWTscopes(['read:secured', 'write:secured'], {checkAllScopes: true})
 
 router.get("/", (req, res) => {
     res.json({ hello: "world" });
 });
 
-router.get("/getJobRoles", async (req, res) => {
+router.get("/getJobRoles", checkJwt, checkScopes, async (req, res) => {
    // #swagger.description = 'gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel'
     res.json(await dbconnection.getJobRoles());
 })
@@ -38,36 +54,30 @@ router.get("/getBands", async (req, res) => {
     res.json(await dbconnection.getBands());
 })
 
-
 router.get("/getBandResponsibilities", async (req, res) => {
   // #swagger.description = 'gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilities'
     res.json(await dbconnection.getBandResponsibilities());
 })
-
 
 router.get("/getCapabilityAndJobFamily", async (req, res) => {
   // #swagger.description = 'gets all capabilities and job familes that relate to them and returns CapabilityName, JobFamilyName'
     res.json(await dbconnection.getCapabilityAndJobFamily());
 })
 
-
 router.get("/getTrainingByBand", async (req, res) => {
   // #swagger.description = 'gets all Training by band and returns BandID, BandLevel, TrainingType, BandName, TrainingName, TrainingLink'
     res.json(await dbconnection.getTraingByBand())
 })
-
 
 router.get("/getBandCompetencies", async (req, res) => {
     // #swagger.description = 'gets all band Competencies and returns BandName, BandLevel, CompetenciesName'
     res.json(await dbconnection.getBandCompetencies());
 })
 
-
 router.get("/getTrainings", async (req, res) => {
   // #swagger.description = 'gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink'
     res.json(await dbconnection.getTrainings())
 })
-
 
 router.get("/getCompetencies", async (req, res) => {
   // #swagger.description = 'gets all competencies and returns CompetenciesID, CompetenciesName'
@@ -158,7 +168,6 @@ router.post("/deleteBand", async (req, res) => {
         res.json(result);
     }
 })
-
 
 router.post("/addBand", async (req, res) => {
   // #swagger.description = 'adds a new band with BandName, BandLevel, CompetencyID, Responsibilities, TrainingsList'
