@@ -193,8 +193,13 @@ exports.addCapability = async (Capability) => {
 }
 
 exports.deleteCapability = async (id) => {
-    let results = await db.query('DELETE FROM Capability WHERE CapabilityID = ?', id);
-    return results;
+    try {
+        let results = await db.query('DELETE FROM Capability WHERE CapabilityID = ?', id);
+        return "success";
+    } catch (e) {
+        console.log(e)
+        return e;
+    }
 }
 
 exports.editCapability = async (Capability, id) => {
@@ -204,4 +209,8 @@ exports.editCapability = async (Capability, id) => {
 exports.getCapabilityByID = async (id) => {
     let response = await db.query('SELECT CapabilityName, CapabilityLeadID FROM Capability WHERE CapabilityID = ?', id);
     return response;
+}
+exports.canDeleteCapability = async (id) => {
+    let results = await db.query('SELECT * FROM Capability JOIN JobFamily USING (CapabilityID) WHERE CapabilityID = ?;', id)
+    return results.length === 0;
 }
