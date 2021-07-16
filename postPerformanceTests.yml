@@ -1,0 +1,17 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    - duration: 1
+      arrivalRate: 5
+      name: Warm up
+
+  scenarios:
+    - flow:
+      - post:
+         url: "/addNewJobFamily"
+           json:
+            JobFamilyName: "PerformanceTest"
+            CapabilityID: "1"
+           capture:
+            json: "$.results[0].insertId"
+              as: "IdToDelete"
