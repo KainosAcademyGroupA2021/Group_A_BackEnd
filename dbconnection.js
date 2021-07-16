@@ -40,7 +40,7 @@ exports.getJobFamilies = async () => {
 
 
 exports.getBandResponsibilities = async () => {
-    let response = await db.query('SELECT BandID, BandName, BandLevel, Responsibilities FROM JobRoleDatabase.Band');
+    let response = await db.query('SELECT BandID, BandName, BandLevel, Responsibilities FROM JobRoleDatabase.Band ORDER BY BandLevel');
     return response;
 }
 
