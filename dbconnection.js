@@ -59,7 +59,7 @@ exports.getTraingByBand = async () => {
 }
 
 exports.getCapabilities = async () => {
-    let response = await db.query('SELECT * FROM Capability;')
+    let response = await db.query('SELECT CapabilityID, CapabilityName, CapabilityLeadID, CapabilityLeadName FROM Capability JOIN CapabilityLeads USING (CapabilityLeadID);')
     return response
 }
 exports.getBands = async () => {
