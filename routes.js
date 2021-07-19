@@ -30,6 +30,7 @@ const checkJwt = JWT({
 const checkScopes = JWTscopes(['read:secured']);
 const adminCheckScopes = JWTscopes(['read:secured', 'write:secured'], {checkAllScopes: true})
 
+
 router.get("/", (req, res) => {
     res.json({ hello: "world" });
 });
@@ -69,7 +70,7 @@ router.get("/getCapabilityAndJobFamily", async (req, res) => {
     res.json(await dbconnection.getCapabilityAndJobFamily());
 })
 
-router.get("/getTrainingByBand", async (req, res) => {
+router.get("/getTrainingByBand", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all Training by band and returns BandID, BandLevel, TrainingType, BandName, TrainingName, TrainingLink'
     res.json(await dbconnection.getTraingByBand())
 })
