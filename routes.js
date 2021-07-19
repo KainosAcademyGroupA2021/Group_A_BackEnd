@@ -50,9 +50,9 @@ router.get("/getJobFamilies", async (req, res) => {
     res.json(await dbconnection.getJobFamilies());
 })
 
-
 router.get("/getCapabilities", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
+
     res.json(await dbconnection.getCapabilities());
 })
 
