@@ -9,6 +9,16 @@ const app = express();
 // JWT and JWTscopes must be mocked for testing, otherwise tests using those middlewares will fail
 replaceMiddleware(routes, 'get', '/getJobRoles', 'JWT', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getJobRoles', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'put', '/editRole/:id', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'put', '/editRole/:id', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addRole', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addRole', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/deleteRole', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/deleteRole', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getJobRolesAdmin', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getJobRolesAdmin', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getTrainingByBand', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getTrainingByBand', 'JWTscopes', (req, res, next) => next());
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
@@ -176,7 +186,7 @@ describe("Band Competencies testing", () => {
 
 
 describe("Capability Route Testing", () => {
-  it("/getCapabilities return list of job families", done => {
+  it("/getCapabilities return list of capabilities", done => {
     request(app)
       .get("/getCapabilities")
       .expect("Content-Type", /json/)
@@ -186,7 +196,8 @@ describe("Capability Route Testing", () => {
         assert.deepStrictEqual(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
-          CapabilityLeadID: 1
+          CapabilityLeadID: 1,
+          CapabilityLeadName: 'Aislinn McBride'
         })
         done();
       })

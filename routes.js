@@ -30,6 +30,7 @@ const checkJwt = JWT({
 const checkScopes = JWTscopes(['read:secured']);
 const adminCheckScopes = JWTscopes(['read:secured', 'write:secured'], {checkAllScopes: true})
 
+
 router.get("/", (req, res) => {
     res.json({ hello: "world" });
 });
@@ -50,7 +51,7 @@ router.get("/getJobFamilies", async (req, res) => {
 })
 
 router.get("/getCapabilities", async (req, res) => {
-  // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
+  // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID, CapabilityLeadName'
     res.json(await dbconnection.getCapabilities());
 })
 
@@ -248,9 +249,12 @@ router.post("/addCapability", checkJwt, adminCheckScopes, async (req, res) => {
 })
 
 router.get("/getCapabilityByID/:id", checkJwt, checkScopes, async (req, res) => {
+      // #swagger.description = 'gets an existing Capability by CapabilityID'
     res.json(await dbconnection.getCapabilityByID(req.params.id));
 })
-router.put("/editCapability/:id", checkJwt, adminCheckScopes, async (req, res) => {
+  
+router.put("/editCapability/:id", async (req, res) => {
+    // #swagger.description = 'edits an existing Capability by CapabilityID'
     let result;
     if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
         result = "Bad request"
@@ -261,9 +265,13 @@ router.put("/editCapability/:id", checkJwt, adminCheckScopes, async (req, res) =
 })
 
 router.post("/deleteCapability", async (req, res) => {
-  // #swagger.description = 'deletes an existing capability by CapabilityID'
-    let result = await dbconnection.deleteCapability(req.body.CapabilityID);
-    res.json(result);
+    if (!await dbconnection.canDeleteCapability(req.body.CapabilityID)) {
+        res.json("error");
+    } else {
+        let result = await dbconnection.deleteCapability(req.body.CapabilityID);
+      // #swagger.description = 'deletes an existing Capability by CapabilityID'
+        res.json(result);
+    }
 })
 
 module.exports = router;

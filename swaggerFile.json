@@ -1,15 +1,14 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
     "title": "Group A Swagger",
-    "description": "Documentation of Group As APIs, using swagger"
+    "description": "Documentation of Group As APIs, using swagger",
+    "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "my.api:50001",
   "basePath": "/",
   "tags": [],
   "schemes": [
-    "http",
     "https"
   ],
   "consumes": [
@@ -127,6 +126,14 @@
             "type": "string"
           }
         ],
+        "responses": {}
+      }
+    },
+    "/getTakenBandLevels": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
         "responses": {}
       }
     },
@@ -433,7 +440,7 @@
     "/getCapabilityByID/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets an existing Capability by CapabilityID",
         "parameters": [
           {
             "name": "id",
@@ -448,7 +455,7 @@
     "/editCapability/{id}": {
       "put": {
         "tags": [],
-        "description": "",
+        "description": "edits an existing Capability by CapabilityID",
         "parameters": [
           {
             "name": "id",
@@ -478,7 +485,7 @@
     "/deleteCapability": {
       "post": {
         "tags": [],
-        "description": "deletes an existing capability by CapabilityID",
+        "description": "deletes an existing Capability by CapabilityID",
         "parameters": [
           {
             "name": "obj",
@@ -497,5 +504,20 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {},
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "in": "header",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }
