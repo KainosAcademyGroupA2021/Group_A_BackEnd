@@ -34,7 +34,7 @@ exports.getJobRoles = async () => {
 }
 
 exports.getJobFamilies = async () => {
-    let response = await db.query('SELECT * FROM JobFamily;')
+    let response = await db.query('SELECT CapabilityID, JobFamilyID, JobFamilyName, CapabilityName FROM JobFamily JOIN Capability USING (CapabilityID);')
     return response;
 }
 
@@ -130,6 +130,16 @@ exports.addJobFamily = async (newJobFamily) => {
 exports.deleteJobFamily = async (id) => {
     let results = await db.query('DELETE FROM JobFamily WHERE JobFamilyID = ?', id);
     return results;
+}
+
+exports.editJobFamily = async (JobFamily, id) => {
+    let results = await db.query('UPDATE JobFamily SET ? WHERE JobFamilyID = ?', [JobFamily, id]);
+    return results;
+}
+
+exports.getJobFamilyByID = async (id) => {
+    let response = await db.query('SELECT JobFamilyName, CapabilityID FROM JobFamily WHERE JobFamilyID = ?', id);
+    return response;
 }
 
 exports.deleteBand = async (id) => {

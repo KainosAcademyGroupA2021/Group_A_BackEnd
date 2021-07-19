@@ -57,6 +57,7 @@ describe("Job Families Route Testing", () => {
           CapabilityID: 1,
           JobFamilyID: 1,
           JobFamilyName: "Engineering Strategy and Planning",
+          CapabilityName: 'Engineering'
         })
         done();
       })
@@ -186,7 +187,7 @@ describe("Band Competencies testing", () => {
 
 
 describe("Capability Route Testing", () => {
-  it("/getCapabilities return list of job families", done => {
+  it("/getCapabilities return list of capabilities", done => {
     request(app)
       .get("/getCapabilities")
       .expect("Content-Type", /json/)
@@ -517,6 +518,52 @@ describe("Add Job Family Route Testing", () => {
           .expect(200)
           .then(response => {
             done();
+          })
+          .catch(err => done(err))
+      })
+      .catch(err => done(err))
+  })
+})
+
+describe("Edit JobFamily post Route Testing", () => {
+  it("/editJobFamily will successfully add and then edit a JobFamily and then delete it", done => {
+    request(app)
+      .post("/addNewJobFamily")
+      .send({
+        JobFamilyName: 'TestJobFamily',
+        CapabilityID: 1
+      })
+      .set('Accept', 'application/json')
+      .expect("Content-Type", /json/)
+      .expect(200)
+      .then(response => {
+        return response.body;
+      })
+      .then((id) => {
+        request(app)
+          .put("/editJobFamily/"+id)
+          .send({
+            JobFamilyName: 'EditedJobFamily',
+            CapabilityID: 2
+          })
+          .set('Accept', 'application/json')
+          .expect("Content-Type", /json/)
+          .expect(200)
+          .then(response => {
+            return id;
+          }).then((id) => {
+            request(app)
+              .post("/deleteJobFamily")
+              .send({
+                JobFamilyID: id
+              })
+              .set('Accept', 'application/json')
+              .expect("Content-Type", /json/)
+              .expect(200)
+              .then(response => {
+                done();
+              })
+              .catch(err => done(err))
           })
           .catch(err => done(err))
       })

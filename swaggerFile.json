@@ -35,6 +35,14 @@
         "responses": {}
       }
     },
+    "/getJobRolesAdmin": {
+      "get": {
+        "tags": [],
+        "description": "gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/getJobFamilies": {
       "get": {
         "tags": [],
@@ -127,6 +135,14 @@
             "type": "string"
           }
         ],
+        "responses": {}
+      }
+    },
+    "/getTakenBandLevels": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
         "responses": {}
       }
     },
@@ -313,6 +329,51 @@
         "responses": {}
       }
     },
+    "/editJobFamily/{id}": {
+      "put": {
+        "tags": [],
+        "description": "edits an existing JobFamily by JobFamilyID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "JobFamilyName": {
+                  "example": "any"
+                },
+                "CapabilityID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getJobFamilyByID/{id}": {
+      "get": {
+        "tags": [],
+        "description": "gets an existing JobFamily by JobFamilyID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/deleteBand": {
       "post": {
         "tags": [],
@@ -433,7 +494,7 @@
     "/getCapabilityByID/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "description": "gets an existing Capability by CapabilityID",
         "parameters": [
           {
             "name": "id",
@@ -448,7 +509,7 @@
     "/editCapability/{id}": {
       "put": {
         "tags": [],
-        "description": "",
+        "description": "edits an existing Capability by CapabilityID",
         "parameters": [
           {
             "name": "id",
@@ -478,7 +539,7 @@
     "/deleteCapability": {
       "post": {
         "tags": [],
-        "description": "deletes an existing capability by CapabilityID",
+        "description": "deletes an existing Capability by CapabilityID",
         "parameters": [
           {
             "name": "obj",
