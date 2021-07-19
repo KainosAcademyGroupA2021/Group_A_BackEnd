@@ -190,7 +190,7 @@ describe("Band Competencies testing", () => {
 
 
 describe("Capability Route Testing", () => {
-  it("/getCapabilities return list of job families", done => {
+  it("/getCapabilities return list of capabilities", done => {
     request(app)
       .get("/getCapabilities")
       .expect("Content-Type", /json/)
@@ -200,7 +200,8 @@ describe("Capability Route Testing", () => {
         assert.deepStrictEqual(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
-          CapabilityLeadID: 1
+          CapabilityLeadID: 1,
+          CapabilityLeadName: 'Aislinn McBride'
         })
         done();
       })
