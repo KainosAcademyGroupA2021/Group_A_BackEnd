@@ -169,6 +169,25 @@ router.post("/deleteJobFamily", async (req, res) => {
     res.json(result);
 })
 
+
+router.put("/editJobFamily/:id", async (req, res) => {
+    // #swagger.description = 'edits an existing JobFamily by JobFamilyID'
+    let result;
+    if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
+        result = "Bad request"
+    } else {
+        result = await dbconnection.editJobFamily(req.body, req.params.id);
+    }
+    res.json(result);
+})
+
+
+  router.get("/getJobFamilyByID/:id", async (req, res) => {
+    // #swagger.description = 'gets an existing JobFamily by JobFamilyID'
+    res.json(await dbconnection.getJobFamilyByID(req.params.id));
+})
+
+
 router.post("/deleteBand", checkJwt, adminCheckScopes, async (req, res) => {
     //delete links in junction table associated with band
     if (!await dbconnection.canDeleteBand(req.body.BandID)) {

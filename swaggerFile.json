@@ -34,6 +34,14 @@
         "responses": {}
       }
     },
+    "/getJobRolesAdmin": {
+      "get": {
+        "tags": [],
+        "description": "gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/getJobFamilies": {
       "get": {
         "tags": [],
@@ -315,6 +323,51 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/editJobFamily/{id}": {
+      "put": {
+        "tags": [],
+        "description": "edits an existing JobFamily by JobFamilyID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "JobFamilyName": {
+                  "example": "any"
+                },
+                "CapabilityID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/getJobFamilyByID/{id}": {
+      "get": {
+        "tags": [],
+        "description": "gets an existing JobFamily by JobFamilyID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {}
