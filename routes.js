@@ -257,7 +257,7 @@ router.get("/getCapabilityByID/:id", checkJwt, checkScopes, async (req, res) => 
     res.json(await dbconnection.getCapabilityByID(req.params.id));
 })
   
-router.put("/editCapability/:id", async (req, res) => {
+router.put("/editCapability/:id", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'edits an existing Capability by CapabilityID'
     let result;
     if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
