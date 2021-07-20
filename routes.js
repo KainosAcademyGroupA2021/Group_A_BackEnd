@@ -52,21 +52,17 @@ router.get("/getJobFamilies", async (req, res) => {
 
 router.get("/getCapabilities", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
+
     res.json(await dbconnection.getCapabilities());
 })
 
-router.get("/getBandsAdmin", checkJwt, adminCheckScopes, async (req, res) => {
-  // #swagger.description = 'gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID'
+router.get("/getBands", async (req, res) => {
+    // #swagger.description = 'gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID'
     res.json(await dbconnection.getBands());
 })
 
-router.get("/getBands", checkJwt, checkScopes, async (req, res) => {
-    // #swagger.description = 'gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID'
-      res.json(await dbconnection.getBands());
-  })
-
-router.get("/getBandResponsibilities", checkJwt, checkScopes, async (req, res) => {
-  // #swagger.description = 'gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilitiess
+router.get("/getBandResponsibilities", async (req, res) => {
+    // #swagger.description = 'gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilities'
     res.json(await dbconnection.getBandResponsibilities());
 })
 
@@ -80,19 +76,18 @@ router.get("/getTrainingByBand", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getTraingByBand())
 })
 
-router.get("/getBandCompetencies", checkJwt, checkScopes, async (req, res) => {
+router.get("/getBandCompetencies", async (req, res) => {
     // #swagger.description = 'gets all band Competencies and returns BandName, BandLevel, CompetenciesName'
     res.json(await dbconnection.getBandCompetencies());
 })
 
-
-router.get("/getTrainings", checkJwt, checkScopes, async (req, res) => {
-  // #swagger.description = 'gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink'
+router.get("/getTrainings",  async (req, res) => {
+    // #swagger.description = 'gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink'
     res.json(await dbconnection.getTrainings())
 })
 
-router.get("/getCompetencies", checkJwt, checkScopes, async (req, res) => {
-  // #swagger.description = 'gets all competencies and returns CompetenciesID, CompetenciesName'
+router.get("/getCompetencies", async (req, res) => {
+    // #swagger.description = 'gets all competencies and returns CompetenciesID, CompetenciesName'
     res.json(await dbconnection.getCompetencies());
 })
 
@@ -101,25 +96,24 @@ router.get("/getCapabilityLeads", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getCapabilityLeads());
 })
 
-router.get("/getBand/:id", checkJwt, checkScopes, async (req, res) => {
+router.get("/getBand/:id", async (req, res) => {
     res.json(await dbconnection.getBand(req.params.id));
 })
 
-router.get("/getTakenBandLevels", checkJwt, adminCheckScopes, async (req, res) => {
+router.get("/getTakenBandLevels", async (req, res) => {
     res.json(await dbconnection.getTakenBandLevels());
 })
 
-router.get("/getAssociatedTrainingIDsWithBand/:id", checkJwt, checkScopes, async (req, res) => {
+router.get("/getAssociatedTrainingIDsWithBand/:id", async (req, res) => {
     res.json(await dbconnection.getAssociatedTrainingIDsWithBand(req.params.id));
 })
 
-router.get("/getAssociatedCompetenciesIDsWithBand/:id", checkJwt, checkScopes, async (req, res) => {
+router.get("/getAssociatedCompetenciesIDsWithBand/:id", async (req, res) => {
     res.json(await dbconnection.getAssociatedCompetenciesIDsWithBand(req.params.id));
 })
 
-
-router.get("/getRoleWithCapabilityID/:id", checkJwt, checkScopes, async (req, res) => {
-  // #swagger.description = 'gets all roles with a capability id and returns CapabilityID, JobFamilyID, RoleID, RoleName, RoleSpec, BandID, RoleSpecSummary, JobFamilyName, CapabilityName, CapabilityLeadID'
+router.get("/getRoleWithCapabilityID/:id", async (req, res) => {
+    // #swagger.description = 'gets all roles with a capability id and returns CapabilityID, JobFamilyID, RoleID, RoleName, RoleSpec, BandID, RoleSpecSummary, JobFamilyName, CapabilityName, CapabilityLeadID'
     res.json(await dbconnection.getRoleWithCapabilityID(req.params.id));
 })
 
@@ -169,26 +163,7 @@ router.post("/deleteJobFamily", async (req, res) => {
     res.json(result);
 })
 
-
-router.put("/editJobFamily/:id", async (req, res) => {
-    // #swagger.description = 'edits an existing JobFamily by JobFamilyID'
-    let result;
-    if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
-        result = "Bad request"
-    } else {
-        result = await dbconnection.editJobFamily(req.body, req.params.id);
-    }
-    res.json(result);
-})
-
-
-  router.get("/getJobFamilyByID/:id", async (req, res) => {
-    // #swagger.description = 'gets an existing JobFamily by JobFamilyID'
-    res.json(await dbconnection.getJobFamilyByID(req.params.id));
-})
-
-
-router.post("/deleteBand", checkJwt, adminCheckScopes, async (req, res) => {
+router.post("/deleteBand", async (req, res) => {
     //delete links in junction table associated with band
     if (!await dbconnection.canDeleteBand(req.body.BandID)) {
         res.json("error");
@@ -201,9 +176,8 @@ router.post("/deleteBand", checkJwt, adminCheckScopes, async (req, res) => {
     }
 })
 
-router.post("/addBand", checkJwt, adminCheckScopes, async (req, res) => {
-  // #swagger.description = 'adds a new band with BandName, BandLevel, CompetencyID, Responsibilities, TrainingsList'
-
+router.post("/addBand", async (req, res) => {
+    // #swagger.description = 'adds a new band with BandName, BandLevel, CompetencyID, Responsibilities, TrainingsList'
     let result;
     let insertId;
     if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.Responsibilities === "") {
@@ -230,7 +204,7 @@ router.post("/addBand", checkJwt, adminCheckScopes, async (req, res) => {
     res.json(insertId);
 })
 
-router.put("/editBand/:id", checkJwt, adminCheckScopes, async (req, res) => {
+router.put("/editBand/:id", async (req, res) => {
     let result = "Bad Request";
     let id = req.params.id;
     if (req.body.BandName === "" || req.body.BandLevel === "" || req.body.Responsibilities === "") {
@@ -259,8 +233,8 @@ router.put("/editBand/:id", checkJwt, adminCheckScopes, async (req, res) => {
     res.json(id);
 })
 
-router.post("/addCapability", checkJwt, adminCheckScopes, async (req, res) => {
-  // #swagger.description = 'adds a new capability with CapabilityName, CapabilityLeadID'
+router.post("/addCapability", async (req, res) => {
+    // #swagger.description = 'adds a new capability with CapabilityName, CapabilityLeadID'
     let result;
     if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
         result = "Bad request"
@@ -270,12 +244,11 @@ router.post("/addCapability", checkJwt, adminCheckScopes, async (req, res) => {
     res.json(result);
 })
 
-router.get("/getCapabilityByID/:id", checkJwt, checkScopes, async (req, res) => {
-      // #swagger.description = 'gets an existing Capability by CapabilityID'
+router.get("/getCapabilityByID/:id", async (req, res) => {
+    // #swagger.description = 'gets an existing Capability by CapabilityID'
     res.json(await dbconnection.getCapabilityByID(req.params.id));
 })
-  
-router.put("/editCapability/:id", checkJwt, adminCheckScopes, async (req, res) => {
+router.put("/editCapability/:id", async (req, res) => {
     // #swagger.description = 'edits an existing Capability by CapabilityID'
     let result;
     if (req.body.CapabilityName === "" || req.body.CapabilityLeadID === "") {
