@@ -45,12 +45,12 @@ router.get("/getJobRolesAdmin", checkJwt, adminCheckScopes, async (req, res) => 
     res.json(await dbconnection.getJobRoles());
 })
 
-router.get("/getJobFamilies", async (req, res) => {
+router.get("/getJobFamilies", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'gets all job families and returns JobFamilyID, JobFamilyName and CapabilityID'
     res.json(await dbconnection.getJobFamilies());
 })
 
-router.get("/getCapabilities", async (req, res) => {
+router.get("/getCapabilities", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
     res.json(await dbconnection.getCapabilities());
 })
