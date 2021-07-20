@@ -86,6 +86,7 @@ router.get("/getBandCompetencies", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getBandCompetencies());
 })
 
+
 router.get("/getTrainings", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink'
     res.json(await dbconnection.getTrainings())
@@ -97,7 +98,7 @@ router.get("/getCompetencies", checkJwt, checkScopes, async (req, res) => {
 })
 
 router.get("/getCapabilityLeads", checkJwt, checkScopes, async (req, res) => {
-  // #swagger.description = 'gets all capability leads  and returns CapabilityLeadID, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage, CapabilityID, CapabilityName'
+    // #swagger.description = 'gets all capability leads  and returns CapabilityLeadID, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage, CapabilityID, CapabilityName'
     res.json(await dbconnection.getCapabilityLeads());
 })
 
