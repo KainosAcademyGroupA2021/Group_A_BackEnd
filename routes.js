@@ -36,7 +36,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/getJobRoles", checkJwt, checkScopes, async (req, res) => {
-    // #swagger.description = 'gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel'
+    // #swagger.description = 'gets all job roles currently available and returns RoleID, RoleName, RoleSpec, RoleSpecSummary, CapabilityName, BandName, BandLevel, JobFamilyID'
     res.json(await dbconnection.getJobRoles());
 })
 
