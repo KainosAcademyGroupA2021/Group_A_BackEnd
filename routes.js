@@ -45,12 +45,12 @@ router.get("/getJobRolesAdmin", checkJwt, adminCheckScopes, async (req, res) => 
     res.json(await dbconnection.getJobRoles());
 })
 
-router.get("/getJobFamilies", async (req, res) => {
+router.get("/getJobFamilies", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'gets all job families and returns JobFamilyID, JobFamilyName and CapabilityID'
     res.json(await dbconnection.getJobFamilies());
 })
 
-router.get("/getCapabilities", async (req, res) => {
+router.get("/getCapabilities", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
     res.json(await dbconnection.getCapabilities());
 })
@@ -170,7 +170,7 @@ router.post("/deleteJobFamily", async (req, res) => {
 })
 
 
-router.put("/editJobFamily/:id", async (req, res) => {
+router.put("/editJobFamily/:id", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'edits an existing JobFamily by JobFamilyID'
     let result;
     if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
@@ -182,7 +182,7 @@ router.put("/editJobFamily/:id", async (req, res) => {
 })
 
 
-  router.get("/getJobFamilyByID/:id", async (req, res) => {
+  router.get("/getJobFamilyByID/:id", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'gets an existing JobFamily by JobFamilyID'
     res.json(await dbconnection.getJobFamilyByID(req.params.id));
 })
