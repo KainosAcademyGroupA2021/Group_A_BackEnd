@@ -51,6 +51,10 @@ replaceMiddleware(routes, 'put', '/editCapability/:id', 'JWT', (req, res, next) 
 replaceMiddleware(routes, 'put', '/editCapability/:id', 'JWTscopes', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getJobFamilies', 'JWT', (req,res, next) => next())
 replaceMiddleware(routes, 'get', '/getJobFamilies', 'JWTscopes', (req,res, next) => next())
+replaceMiddleware(routes, 'get', '/getJobFamilyByID/:id', 'JWT', (req,res, next) => next())
+replaceMiddleware(routes, 'get', '/getJobFamilyByID/:id', 'JWTscopes', (req,res, next) => next())
+replaceMiddleware(routes, 'put', "/editJobFamily/:id", 'JWT', (req,res, next) => next())
+replaceMiddleware(routes, 'put', "/editJobFamily/:id", 'JWTscopes', (req,res, next) => next())
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);

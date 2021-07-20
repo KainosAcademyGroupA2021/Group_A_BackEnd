@@ -170,7 +170,7 @@ router.post("/deleteJobFamily", async (req, res) => {
 })
 
 
-router.put("/editJobFamily/:id", async (req, res) => {
+router.put("/editJobFamily/:id", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'edits an existing JobFamily by JobFamilyID'
     let result;
     if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
@@ -182,7 +182,7 @@ router.put("/editJobFamily/:id", async (req, res) => {
 })
 
 
-  router.get("/getJobFamilyByID/:id", async (req, res) => {
+  router.get("/getJobFamilyByID/:id", checkJwt, adminCheckScopes, async (req, res) => {
     // #swagger.description = 'gets an existing JobFamily by JobFamilyID'
     res.json(await dbconnection.getJobFamilyByID(req.params.id));
 })
