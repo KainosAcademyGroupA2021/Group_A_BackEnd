@@ -19,6 +19,31 @@ replaceMiddleware(routes, 'get', '/getJobRolesAdmin', 'JWT', (req, res, next) =>
 replaceMiddleware(routes, 'get', '/getJobRolesAdmin', 'JWTscopes', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getTrainingByBand', 'JWT', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getTrainingByBand', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilities', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilities', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/deleteCapability', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/deleteCapability', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilityAndJobFamily', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilityAndJobFamily', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getBands', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getBands', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getBandCompetencies', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getBandCompetencies', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addBand', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addBand', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'put', '/editBand/:id', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'put', '/editBand/:id', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/deleteBand', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/deleteBand', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getBandResponsibilities', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getBandResponsibilities', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilityLeads', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilityLeads', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addCapability', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addCapability', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'put', '/editCapability/:id', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'put', '/editCapability/:id', 'JWTscopes', (req, res, next) => next());
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
@@ -197,7 +222,8 @@ describe("Capability Route Testing", () => {
         assert.deepStrictEqual(response.body[0], {
           CapabilityID: 1,
           CapabilityName: 'Engineering',
-          CapabilityLeadID: 1
+          CapabilityLeadID: 1,
+          CapabilityLeadName: 'Aislinn McBride'
         })
         done();
       })

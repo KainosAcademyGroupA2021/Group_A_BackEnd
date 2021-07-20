@@ -1,19 +1,36 @@
-const swaggerAutogen = require('swagger-autogen')();
+const options = {
+    openapi: "3.0.0"
+}
 
+const swaggerAutogen = require('swagger-autogen')(options);
 const outputFile = './swaggerFile.json'
+
 const endpointsFiles = ['./routes.js']
 
 const info = {
     info: {
-        version: "1.0.0",
         title: "Group A Swagger",
         description: "Documentation of Group As APIs, using swagger"
     },
-    host: "localhost:5000",
+    host: "my.api:50001",
     basePath: "/",
-    schemes: ['http', 'https'],
+    schemes: ['https'],
     consumes: ['application/json'],
-    produces: ['application/json']
+    produces: ['application/json'],
+    components: {
+     securitySchemes: {
+       bearerAuth: {
+         type: "http",
+         scheme: "bearer",
+         in: "header",
+         bearerFormat: "JWT"
+       },
+     }
+   }
+   ,
+   security: [{
+     bearerAuth: []
+   }]
 }
 
 swaggerAutogen(outputFile, endpointsFiles, info)

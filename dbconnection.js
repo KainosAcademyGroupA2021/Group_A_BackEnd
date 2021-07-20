@@ -7,9 +7,8 @@ const dbconfig = require('./dbconfig.js')
 
 const util = require('util')
 
-const bodyParser = require("body-parser");
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
 
 function wrapDB(dbconfig) {
@@ -54,12 +53,12 @@ exports.getCapabilityAndJobFamily = async () => {
 
 
 exports.getTraingByBand = async () => {
-    let response = await db.query('Select BandID, BandLevel, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Band_Training USING (BandID) JOIN Training Using (TrainingID) ORDER BY BandLevel;')
+    let response = await db.query('Select BandID, BandLevel, TrainingType,  BandName, TrainingName, TrainingLink FROM JobRoleDatabase.Band Join Band_Training USING (BandID) JOIN Training Using (TrainingID) GROUP BY BandName;')
     return response;
 }
 
 exports.getCapabilities = async () => {
-    let response = await db.query('SELECT * FROM Capability;')
+    let response = await db.query('SELECT CapabilityID, CapabilityName, CapabilityLeadID, CapabilityLeadName FROM Capability JOIN CapabilityLeads USING (CapabilityLeadID);')
     return response
 }
 exports.getBands = async () => {

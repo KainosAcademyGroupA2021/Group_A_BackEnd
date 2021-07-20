@@ -1,15 +1,14 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
     "title": "Group A Swagger",
-    "description": "Documentation of Group As APIs, using swagger"
+    "description": "Documentation of Group As APIs, using swagger",
+    "version": "1.0.0"
   },
-  "host": "localhost:5000",
+  "host": "my.api:50001",
   "basePath": "/",
   "tags": [],
   "schemes": [
-    "http",
     "https"
   ],
   "consumes": [
@@ -558,5 +557,20 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {},
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "in": "header",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }
