@@ -145,7 +145,7 @@ router.post("/deleteRole", checkJwt, adminCheckScopes, async (req, res) => {
     res.json(result);
 })
 
-router.post("/addNewJobFamily", async (req, res) => {
+router.post("/addNewJobFamily",checkJwt, checkScopes, async (req, res) => {
     // #swagger.description = 'adds a new job family with JobFamilyName, CapabilityID'
     let result;
     if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {
