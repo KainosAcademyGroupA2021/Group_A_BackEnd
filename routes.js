@@ -52,7 +52,6 @@ router.get("/getJobFamilies", async (req, res) => {
 
 router.get("/getCapabilities", checkJwt, checkScopes, async (req, res) => {
   // #swagger.description = 'gets all capabilities and returns CapabilityID, CapabilityName, CapabilityLeadID'
-
     res.json(await dbconnection.getCapabilities());
 })
 
@@ -152,7 +151,7 @@ router.post("/deleteRole", checkJwt, adminCheckScopes, async (req, res) => {
     res.json(result);
 })
 
-router.post("/addNewJobFamily", async (req, res) => {
+router.post("/addNewJobFamily",checkJwt, checkScopes, async (req, res) => {
     // #swagger.description = 'adds a new job family with JobFamilyName, CapabilityID'
     let result;
     if (req.body.JobFamilyName === "" || req.body.CapabilityID === "") {

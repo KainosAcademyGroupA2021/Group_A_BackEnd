@@ -27,6 +27,8 @@ replaceMiddleware(routes, 'get', '/getCapabilityAndJobFamily', 'JWT', (req, res,
 replaceMiddleware(routes, 'get', '/getCapabilityAndJobFamily', 'JWTscopes', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getCapabilityLeads', 'JWT', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getCapabilityLeads', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addNewJobFamily', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'post', '/addNewJobFamily', 'JWTscopes', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getBands', 'JWT', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getBands', 'JWTscopes', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getBandCompetencies', 'JWT', (req, res, next) => next());
