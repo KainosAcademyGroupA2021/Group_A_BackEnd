@@ -531,7 +531,7 @@ describe("Edit JobFamily post Route Testing", () => {
       .post("/addNewJobFamily")
       .send({
         JobFamilyName: 'TestJobFamily',
-        CapabilityID: 1
+        CapabilityID: '1'
       })
       .set('Accept', 'application/json')
       .expect("Content-Type", /json/)
@@ -544,7 +544,7 @@ describe("Edit JobFamily post Route Testing", () => {
           .put("/editJobFamily/"+id)
           .send({
             JobFamilyName: 'EditedJobFamily',
-            CapabilityID: 2
+            CapabilityID: '2'
           })
           .set('Accept', 'application/json')
           .expect("Content-Type", /json/)
@@ -555,7 +555,7 @@ describe("Edit JobFamily post Route Testing", () => {
             request(app)
               .post("/deleteJobFamily")
               .send({
-                JobFamilyID: id
+                JobFamilyID: id.insertId
               })
               .set('Accept', 'application/json')
               .expect("Content-Type", /json/)
