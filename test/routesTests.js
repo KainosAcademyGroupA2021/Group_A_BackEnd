@@ -25,6 +25,8 @@ replaceMiddleware(routes, 'post', '/deleteCapability', 'JWT', (req, res, next) =
 replaceMiddleware(routes, 'post', '/deleteCapability', 'JWTscopes', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getCapabilityAndJobFamily', 'JWT', (req, res, next) => next());
 replaceMiddleware(routes, 'get', '/getCapabilityAndJobFamily', 'JWTscopes', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilityLeads', 'JWT', (req, res, next) => next());
+replaceMiddleware(routes, 'get', '/getCapabilityLeads', 'JWTscopes', (req, res, next) => next());
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);

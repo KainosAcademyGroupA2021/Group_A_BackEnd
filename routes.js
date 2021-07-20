@@ -81,7 +81,7 @@ router.get("/getBandCompetencies", async (req, res) => {
     res.json(await dbconnection.getBandCompetencies());
 })
 
-router.get("/getTrainings", async (req, res) => {
+router.get("/getTrainings",  async (req, res) => {
     // #swagger.description = 'gets all training and returns TrainingID, TrainingName, TrainingType, TrainingLink'
     res.json(await dbconnection.getTrainings())
 })
@@ -91,7 +91,7 @@ router.get("/getCompetencies", async (req, res) => {
     res.json(await dbconnection.getCompetencies());
 })
 
-router.get("/getCapabilityLeads",async (req, res) => {
+router.get("/getCapabilityLeads", checkJwt, checkScopes, async (req, res) => {
     // #swagger.description = 'gets all capability leads  and returns CapabilityLeadID, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage, CapabilityID, CapabilityName'
     res.json(await dbconnection.getCapabilityLeads());
 })
