@@ -101,6 +101,11 @@ router.get("/getCapabilityLeads", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getCapabilityLeads());
 })
 
+router.get("/getDistinctCapabilityLeads", checkJwt, checkScopes, async (req, res) => {
+    // #swagger.description = 'gets all capability leads  and returns CapabilityLeadID, CapabilityLeadName, CapabilityLeadPhoto, CapabilityLeadMessage'
+    res.json(await dbconnection.getDistinctCapabilityLeads());
+})
+
 router.get("/getBand/:id", checkJwt, checkScopes, async (req, res) => {
     res.json(await dbconnection.getBand(req.params.id));
 })
