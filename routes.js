@@ -45,7 +45,7 @@ router.get("/getJobRolesAdmin", checkJwt, adminCheckScopes, async (req, res) => 
     res.json(await dbconnection.getJobRoles());
 })
 
-router.get("/getJobFamilies", checkJwt, adminCheckScopes, async (req, res) => {
+router.get("/getJobFamilies", checkJwt, checkScopes, async (req, res) => {
     // #swagger.description = 'gets all job families and returns JobFamilyID, JobFamilyName and CapabilityID'
     res.json(await dbconnection.getJobFamilies());
 })
