@@ -55,6 +55,8 @@ replaceMiddleware(routes, 'get', '/getJobFamilyByID/:id', 'JWT', (req,res, next)
 replaceMiddleware(routes, 'get', '/getJobFamilyByID/:id', 'JWTscopes', (req,res, next) => next())
 replaceMiddleware(routes, 'put', "/editJobFamily/:id", 'JWT', (req,res, next) => next())
 replaceMiddleware(routes, 'put', "/editJobFamily/:id", 'JWTscopes', (req,res, next) => next())
+replaceMiddleware(routes, 'post', "/deleteJobFamily", 'JWT', (req,res, next) => next())
+replaceMiddleware(routes, 'post', "/deleteJobFamily", 'JWTscopes', (req,res, next) => next())
 
 app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
@@ -109,10 +111,14 @@ describe("Bands Route Testing", () => {
       .expect(200)
       .then(response => {
         assert.deepStrictEqual(response.body[0], {
-          BandID: 2,
-          BandName: 'Apprentice',
-          BandLevel: 8,
-          Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. '
+          BandID: 59,
+          BandLevel: 0,
+          BandName: 'CEO',
+          Responsibilities: 'Looking after the company'
+          // BandID: 2,
+          // BandName: 'Apprentice',
+          // BandLevel: 8,
+          // Responsibilities: 'As a Apprentince in Kainos, you’ll be responsible for contributing to the development of high-quality solutions to delight our customers and impact the lives of users worldwide. '
         })
         done();
       })

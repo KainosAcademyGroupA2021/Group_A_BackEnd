@@ -162,7 +162,7 @@ router.post("/addNewJobFamily",checkJwt, checkScopes, async (req, res) => {
     res.json(result);
 })
 
-router.post("/deleteJobFamily", async (req, res) => {
+router.post("/deleteJobFamily", checkJwt, checkScopes, async (req, res) => {
     if (!await dbconnection.canDeleteJobFamily(req.body.JobFamilyID)) {
         res.json("error");
     } else {
