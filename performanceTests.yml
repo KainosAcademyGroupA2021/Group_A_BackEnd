@@ -1,0 +1,53 @@
+config:
+  target: "https://my.api:50001"
+  tls:
+      rejectUnauthorized: false
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: Warm up
+    - duration: 20
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 30
+      arrivalRate: 50
+      name: Sustained load
+  defaults:
+      headers:
+          authorization: "bearer tokenHere"
+scenarios:
+  - name: "test get requests"
+    flow:
+    - get:
+        url: "/getJobRoles"
+    - get:
+        url: "/getCapabilities"
+    - get:
+        url: "/getBands"
+    - get:
+        url: "/getBandResponsibilities"
+    - get:
+        url: "/getCapabilityAndJobFamily"
+    - get:
+        url: "/getTrainingByBand"
+    - get:
+        url: "/getBandCompetencies"
+    - get:
+        url: "/getTrainings"
+    - get:
+        url: "/getCompetencies"
+    - get:
+        url: "/getCapabilityLeads"
+    - get:
+        url: "/getCapabilityAndJobFamily"
+    - get:
+        url: "/getBand/2"
+    - get:
+        url: "/getAssociatedTrainingIDsWithBand/1"
+    - get:
+        url: "/getAssociatedCompetenciesIDsWithBand/1"
+    - get:
+        url: "/getRoleWithCapabilityID/1"
+    - get:
+        url: "/getCapabilityByID/1"
