@@ -242,7 +242,8 @@ router.put("/editBand/:id", checkJwt, adminCheckScopes, async (req, res) => {
                 BandName: req.body.BandName,
                 BandLevel: req.body.BandLevel,
                 Responsibilities: req.body.Responsibilities
-            });
+            }, id);
+            console.log(result)
         if (req.body.TrainingsList) {
             result = await dbconnection.deleteAssociatedTrainingsWithBand(id);
             for (let TrainingID of req.body.TrainingsList) {
