@@ -163,10 +163,13 @@ router.post("/addNewJobFamily",checkJwt, checkScopes, async (req, res) => {
 })
 
 router.post("/deleteJobFamily", async (req, res) => {
-    // #swagger.description = 'deletes an existing JobFamily by JobFamilyID'
-    let result;
-    result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
-    res.json(result);
+    if (!await dbconnection.canDeleteJobFamily(req.body.JobFamilyID)) {
+        res.json("error");
+    } else {
+        let result = await dbconnection.deleteJobFamily(req.body.JobFamilyID);
+        // #swagger.description = 'deletes an existing JobFamily by JobFamilyID'
+        res.json(result);
+    }
 })
 
 
