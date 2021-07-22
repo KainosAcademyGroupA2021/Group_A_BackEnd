@@ -58,6 +58,14 @@
         "responses": {}
       }
     },
+    "/getBandsAdmin": {
+      "get": {
+        "tags": [],
+        "description": "gets all bands and returns BandID, BandName, BandLevel, Responsibilities ,CompetenciesID",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/getBands": {
       "get": {
         "tags": [],
@@ -69,7 +77,7 @@
     "/getBandResponsibilities": {
       "get": {
         "tags": [],
-        "description": "gets all bands responsibilites and returns BandID, BandName, BandLevel, Responsibilities",
+        "description": "",
         "parameters": [],
         "responses": {}
       }
